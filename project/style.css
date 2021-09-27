@@ -1,0 +1,149 @@
+html { overflow:hidden;}
+body {margin: 0; padding: 0;}
+h1, h2, h4, h5, h6 {margin-top: 0;}
+ul, ol {margin: 0;}
+p {margin: 0;}
+html, body, h1, h2, h4, h5, h6{
+  font-size: 16px;
+  font-family: 'Bungee Inline', cursive;
+}
+.container{
+  box-sizing: border-box;
+  background-color: #08101B;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.game{
+  background:  url('back.jpeg') no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.menu{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* button in menu */
+.buttonControlPage{
+  background: linear-gradient(180deg, white 0%, #9bd6ee 40%, #24429a 100%);
+  border-radius: 50%;
+  font-size: 1.2em;
+  border: none;
+  margin-bottom: 8px;
+  width: 100%;
+  transform: scale(1) translateZ(0) ;
+  transition-duration: 600ms;
+  font-family: 'Bungee Inline', cursive;
+}
+
+.buttonControlPage:hover  {
+  transform: scale(0.8)
+}
+
+.infoPage{
+  position: absolute;
+  top: -100vh;
+  margin:0 auto;
+  left:0;
+  right:0;
+  font-size: 1em;
+  padding: 1em;
+  max-width: 80%;
+  text-align: center;
+  border-radius: 4vh;
+  background-color: rgba(8, 16, 27, 0.75);
+  color: #d0e2f0;
+  transition-duration: 1s;
+  transition-timing-function: ease-out; 
+  transform: translateZ(0); 
+  font-family: 'Bungee Inline', cursive;
+  line-height: 1.5em;
+}
+
+.endGamePageCl{
+  position: absolute;
+  top: 20vh;
+  margin:0 auto;
+  left:0;
+  right:0;
+  font-size: 1em;
+  padding: 1em;
+  max-width: 80%;
+  text-align: center;
+  border-radius: 4vh;
+  background-color: rgba(8, 16, 27, 0.97);
+  border: 3px solid rgba(8, 16, 27);
+  color: #d0e2f0;
+  font-family: 'Bungee Inline', cursive;
+  z-index: 10;
+}
+
+.endGameWord{
+  font-weight: bold;
+  font-size: 4em;
+  color: #fff;
+  text-shadow:
+  0 0 7px #fff,
+  0 0 10px #22cbff,
+  0 0 21px #22cbff,
+  0 0 42px #5271ff,
+  0 0 82px #5271ff,
+  0 0 92px #5271ff,
+  0 0 102px #5271ff,
+  0 0 151px #5271ff;
+}
+
+/* input */
+#IName{ 
+  background: linear-gradient(180deg, white 0%, #9bd6ee 95%, #24429a 100%);
+  border: none;
+}
+
+#error{
+  color: red;
+  font-size: 0.7em;
+  visibility: hidden;
+}
+
+/* button in infoPage OK / Close */
+.buttonConfirm{
+  background: linear-gradient(180deg, white 0%, #9bd6ee 40%, #24429a 100%);
+  border-radius: 50%;
+  padding: 0.2em 1.1em;
+  font-size: 1em;
+  border: none;
+  font-family: 'Bungee Inline', cursive;
+}
+
+
+@media all and (max-width: 780px){
+
+  .container{
+    flex-direction: column;
+  }
+
+  .menu{
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  html, body{
+    font-size: 15px;
+  }
+
+  .buttonControlPage{
+    margin-bottom: 0;
+  }
+} 
+
+
+@media all and (max-width: 420px){
+  html, body{
+    font-size: 13px;
+  }
+}

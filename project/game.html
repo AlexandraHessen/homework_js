@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Шрифты -->
+  <link href="https://fonts.googleapis.com/css2?family=Bungee+Inline&display=swap" rel="stylesheet">
+  <script src="http://fe.it-academy.by/JQ/jquery.js"></script>
+  <title>Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container"> 
+    <div class="menu"></div>
+    <div class="game">
+      <svg id='svgGameId'></svg>
+
+      <div id='end'></div>
+
+      <div id='rulesPage' class='infoPage'>
+        <h2>Purpose Game :</h2>
+        <p>
+          Break all the colored bricks by maneuvering the platform, placing it under the ball, preventing it from falling down.
+        </p>
+        <br>
+        <h2>How to play:</h2>
+        <p>
+          You can control the platform using the mouse or the &laquo;left  &ndash; right&raquo; on a PC. Finger on the touchscreen on your mobile device.
+          You can close this window by double clicking.
+          Good luck!
+        </p>
+        <input type='button' class='buttonConfirm' value='Close' onclick='closeInfoPage(); switchToMainPage()'>
+        <br>
+      </div>
+
+      <div id='recordsPage' class='infoPage'><h2>HIGH SCORES</h2>
+        <div id='IChat'></div>
+        <input type='button' class='buttonConfirm' value='Close' onclick='closeInfoPage(); switchToMainPage()'>
+      </div>
+    </div>
+  </div>
+
+    <script src="spa.js"></script>
+
+    <input type='button' class='buttonControlPage' value='NEW GAME' onclick='switchToMainPage(); start();'>
+    <input type='button' class='buttonControlPage' value='RULES' onclick='switchToRulesPage()'>
+    <input type='button' class='buttonControlPage' value='HIGH SCORES' onclick='switchToRecordsPage(); refreshMessages()'>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+
+

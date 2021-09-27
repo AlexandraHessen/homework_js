@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+      #app{
+          display: flex;
+          justify-content: center;
+      }
+      .item{
+          margin: 20px;
+          border: 2px solid black;
+          padding: 10px;
+      }
+      #basket{
+          width: 300px;
+          height: 300px;
+          background-color: yellow;
+          position: relative;
+      }
+      #totalPrice{
+          position: absolute;
+          height: 50px;
+          background-color: red;
+          color: #fff;
+          bottom: 0;
+          width: 100%;
+          left: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: bold;
+      }
+    </style>
+</head>
+<body>
+
+
+<div id="basket">
+    перетяните сюда
+    <div id="totalPrice"></div>
+</div>
+<div id="app"></div>
+
+
+<script>
+
+    const products = [
+        {
+            id: 0,
+            brand: "samsung",
+            model: "s10",
+            price: 1000
+        },
+        {
+            id: 1,
+            brand: "apple",
+            model: "iPhone 8",
+            price: 1500
+        },
+        {
+            id: 2,
+            brand: "xaomi",
+            model: "redmi 8",
+            price: 2000
+        },
+    ]
+
+    const app = document.getElementById("app");
+    const basket = document.getElementById("basket");
+    const totalPrice = document.getElementById("totalPrice");
+    let itemId = null;
+    let priceCount = 0;
+
+    document.addEventListener("dragstart", function (ev) {
+        itemId = ev.target.id;
+    });
+
+    document.addEventListener("dragover", function (ev) {
+        ev.preventDefault();
+    });
+
+    basket.addEventListener("drop", function (ev) {
+        const itemBlock = document.createElement("div");
+        const title = document.createElement("p");
+        title.innerHTML = products[itemId].brand + " " + products[itemId].model + " - " + products[itemId].price + "$";
+        itemBlock.appendChild(title);
+        this.appendChild(itemBlock);
+        priceCount += products[itemId].price;
+        totalPrice.innerHTML = priceCount + "$";
+    });
+
+    function createProduct(products){
+        for(let i=0; i<products.length; i++){
+            const block = document.createElement("div");
+            const brand = document.createElement("h4");
+            const model = document.createElement("h4");
+            const price = document.createElement("p");
+
+            brand.innerHTML = products[i].brand;
+            model.innerHTML = products[i].model;
+            price.innerHTML = products[i].price;
+
+            block.setAttribute("class", "item");
+            block.setAttribute("draggable", "true");
+            block.setAttribute("id", products[i].id);
+            block.appendChild(brand);
+            block.appendChild(model);
+            block.appendChild(price);
+
+            app.appendChild(block);
+
+        }
+    }
+
+    createProduct(products);
+
+</script>
+
+</body>
+</html>

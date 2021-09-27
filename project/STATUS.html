@@ -1,0 +1,1849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Bungee+Inline&display=swap" rel="stylesheet">
+  <title>Game</title>
+  <style>
+    /* overflow: hidden */
+    html { overflow:hidden;}
+    body {margin: 0; padding: 0;}
+    h1, h2, h4, h5, h6 {margin-top: 0;}
+    ul, ol {margin: 0;}
+    p {margin: 0;}
+    html, body, h1, h2, h4, h5, h6{
+      font-size: 16px;
+      font-family: 'Bungee Inline', cursive;
+  }
+    .container{
+      /* width: 100vw=350; */
+      /* width: 100%;
+      height: 100%; */
+      box-sizing: border-box;
+     background-color: #08101B;
+     display: flex;
+     flex-direction: row;
+     justify-content: space-around;
+     align-items: center;
+     /* #081D32;  светлее*/
+    }
+    .game{
+      /* height: 100vh; */
+      background:  url('11.jpeg') no-repeat;
+      background-size: cover;
+      position: relative;
+      /* background-size: 100%; */
+      
+
+ 
+    }
+    .menu{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+/* [value*='Новая игра'] */
+.buttonControlPage{
+      background: linear-gradient(180deg, white 0%, #9bd6ee 40%, #24429a 100%);
+      border-radius: 50%;
+      font-size: 1.2em;
+      border: none;
+      margin-bottom: 8px;
+      width: 100%;
+      transform: scale(1) translateZ(0) ;
+      transition-duration: 600ms;
+      font-family: 'Bungee Inline', cursive;
+      /* transition: transform 1s; */
+      /* transition-duration: 1s;
+      transition-timing-function: liner; 
+      transform: scale(.5) translateZ(0) translateX(-10%) translateY(-10%); */
+     
+      /* animation: RotateAnim 3s infinite linear; */
+
+
+
+  /* -webkit-transition: transform 400ms;
+  transition: transform 400ms; */
+
+    }
+
+    /* @keyframes RotateAnim
+    {
+        from { transform: scale(0.9); }
+        to { transform: scale(1); }
+    } */
+    /* .buttonControlPage:focus, .buttonControlPage:active */
+    .buttonControlPage:hover  {
+   transform: scale(0.8)
+}
+
+    .buttonConfirm{
+      background: linear-gradient(180deg, white 0%, #9bd6ee 40%, #24429a 100%);
+      border-radius: 50%;
+      padding: 0.2em 1.1em;
+      font-size: 1em;
+      border: none;
+      margin-top: 1em;
+      font-family: 'Bungee Inline', cursive;
+
+    }
+
+    #IName{
+      background: linear-gradient(180deg, white 0%, #9bd6ee 95%, #24429a 100%);
+      border: none;
+    }
+
+    .endGamePageCl{
+      position: absolute;
+      top: 20vh;
+      margin:0 auto;
+      left:0;
+      right:0;
+      font-size: 1em;
+      padding: 1em;
+      max-width: 80%;
+      text-align: center;
+      border-radius: 4vh;
+      background-color: rgba(8, 16, 27, 0.97);
+      border: 3px solid rgba(8, 16, 27);
+      color: #d0e2f0;
+      font-family: 'Bungee Inline', cursive;
+      /* transition-duration: 1.2s;
+      transition-timing-function: ease-out; 
+      transform: translateZ(0);  */
+    }
+
+    .endGameWord{
+      font-weight: bold;
+      font-size: 4em;
+      color: #fff;
+      text-shadow:
+      0 0 7px #fff,
+      0 0 10px #22cbff,
+      0 0 21px #22cbff,
+      0 0 42px #5271ff,
+      0 0 82px #5271ff,
+      0 0 92px #5271ff,
+      0 0 102px #5271ff,
+      0 0 151px #5271ff;
+
+    }
+/* #2A5371,  */
+    .infoPage{
+      position: absolute;
+      top: -100vh;
+      margin:0 auto;
+      left:0;
+      right:0;
+      font-size: 1em;
+      padding: 1em;
+      max-width: 80%;
+      text-align: center;
+      border-radius: 4vh;
+      background-color: rgba(8, 16, 27, 0.75);
+      color: #d0e2f0;
+      transition-duration: 1s;
+      transition-timing-function: ease-out; 
+      transform: translateZ(0); 
+      font-family: 'Bungee Inline', cursive;
+      line-height: 1.5em;
+
+      /* top: -1100px;
+      z-index: 10;
+      animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards; */
+
+
+
+      /* transform: translateZ(0) translateY(50vh); */
+      
+       /* transform: translateZ(0) translateY(100%);  */
+            /* -webkit-transition-duration: 3s;
+      transition-duration: 2s;
+            -webkit-transition-timing-function: linear;*/
+      /* transition-timing-function: linear;   */
+      /* top: 13.8vmax; */
+      /* transform: translate3d(-50%, -50%, 0);
+      transform: translateZ(0) translateY(100%);
+      /* transition-property: top; */
+      
+ /* animation: move 1s linear; */
+    }
+
+    @keyframes info-show {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(1157px);
+  }
+}
+
+@keyframes info-hide {
+  0% {
+    transform: translateY(1157px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+    /* @keyframes move {
+    from { transform: translateY(0); }
+    to   { transform: translateY(70px); }
+} */
+
+    /* .info{
+      display: none;
+      position: absolute;
+      margin:0 auto;
+      left:0;
+      right:0;
+      padding: 1em;
+      max-width: 80%;
+      text-align: center;
+      border-radius: 4vh;
+      background-color: rgba(8, 16, 27, 0.75);
+      color: #d0e2f0;
+    } */
+
+    /* .animRomb5 {
+    -webkit-animation: animRomb5 4s;
+            animation: animRomb5 4s;
+            -webkit-animation-delay: 2s;
+            animation-delay: 2s;
+    }
+    @keyframes animRomb5 {
+    0% {
+      opacity: 0;
+      -webkit-transform-origin: 50% 800%;
+              transform-origin: 50% 800%;
+      -webkit-transform: scale(1.3);
+              transform: scale(1.3);
+    }
+    50%{    opacity: 0.2;
+
+    }
+    100% {
+      opacity: 1;
+      -webkit-transform-origin: 50% 50%;
+              transform-origin: 50% 50%;
+      -webkit-transform: scale(1);
+              transform: scale(1);
+    }
+  } */
+
+
+    /* #ballId{
+      animation: rotation 100ms infinite linear;
+  transform-origin: 50% 50%;
+  
+    }
+    @keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(359deg);
+    } */
+
+    /* #rocketId */
+    /* #Shiny{
+      animation: MyAnimation2 2s infinite;
+    }
+    @keyframes MyAnimation2{
+    from { background-color: cyan; color: red }
+    50% { background-color: magenta; color: red }
+    to { background-color: cyan; color: blue }
+} */
+
+    @media all and (max-width: 780px){
+
+  .container{
+        flex-direction: column;
+      }
+  .menu{
+        flex-direction: row;
+        justify-content: center;
+      }
+
+      html, body{
+      font-size: 15px;
+  }
+      .buttonControlPage{
+        margin-bottom: 0;
+      }
+      /* .container{
+        flex-direction: column;
+      }
+     .game{
+        width: 100vw;
+      } 
+
+
+      #ballId{
+        position: absolute;
+      } */
+
+    } 
+
+    @media all and (max-width: 420px){
+      html, body{
+      font-size: 13px;
+  }
+    }
+  </style>
+</head>
+<body>
+  <!-- <div class="container">
+    <div class="menu">
+      <input type=button value='Новая игра' onclick='start()'>
+      <input type=button value='Правила'>
+      <input type=button value='Таблица рекордов'>
+    </div>
+    <div class="game"></div>
+  </div> -->
+  <div class="container"> 
+    <div class="menu"></div>
+    <div class="game">
+      <svg id='svgGameId'></svg>
+      <!-- <div class="endGamePageCl" id='endGamePage'> -->
+        <!-- <h1 class="endGameWord">YOU WIN !</h1>
+        <h3>
+          Введите Ваше имя:
+        </h3>
+        <input type='text' id='IName'>
+        <br>
+        <input type='button' class='buttonConfirm' value='OK' onclick='sendMessage(); closePage(); switchToMainPage()'> -->
+        <!-- <input type='button' class='buttonConfirm' value='Закрыть' onclick='closePage(); switchToMainPage()'> -->
+        <!-- <input type='button' value='освежить' onclick='refreshMessages()'><br /> -->
+      <!-- </div> -->
+      
+    <!-- <div id='IPage'></div> -->
+    <div id='end'></div>
+    <div id='rulesPage' class='infoPage'><h2>Purpose Game :</h2>
+      <p>
+        Break all the colored bricks by maneuvering the platform, placing it under the ball, preventing it from falling down.
+      <!-- Разбить все цветные кирпичи, маневрируя платформой, подставляя её под мяч, предотвращая его падение вниз. -->
+      </p>
+      <br>
+      <h2>How to play:</h2>
+      <p>
+        You can control the platform using the mouse or the &laquo;left  &ndash; right&raquo; on a PC. Finger on the touchscreen on your mobile device.
+        You can close this window by double clicking.
+        Good luck!
+      <!-- Управлять платформой можно с помощью мыши или кнопок &laquo;влево &ndash; вправо &raquo; на ПК. Пальцем на тачскрине на мобильном устройстве. 
+      Закрыть это окно Вы можете двойным нажатием.
+      Удачи! -->
+      </p>
+      <input type='button' class='buttonConfirm' value='Close' onclick='closePage(); switchToMainPage()'>
+      <br>
+    </div>
+
+    <div id='recordsPage' class='infoPage'><h2>HIGH SCORES</h2>
+      <div id='IChat'></div>
+      <input type='button' class='buttonConfirm' value='Close' onclick='closePage(); switchToMainPage()'>
+    </div>
+    <!-- <div id="colorred" style="background-color: white; color:red; height: 50px">vsvs</div> -->
+    </div>
+  </div>
+<script src="http://fe.it-academy.by/JQ/jquery.js"></script>
+  <script>
+  
+    "use strict";
+    let endGameText=''
+function endGameFunc(word){
+  return endGameText=`
+  <div class="endGamePageCl" id='endGamePage'>
+ 
+  <h1 class="endGameWord">${word}</h1>
+        <h3>
+            Enter your name:
+        </h3>
+        <input type='text' id='IName'>
+        <br>
+        <input type='button' class='buttonConfirm' value='OK' onclick='sendMessage(); closeEndGamePage(); switchToMainPage()'>
+      
+      </div>`
+
+      }
+    
+    // YOU WIN !
+
+    function closeEndGamePage(){
+      document.getElementById("endGamePage").style.display='none'
+      //  field.removeChild(document.getElementById("endGamePage"))
+    }
+      
+        function closePage(){
+      console.log('close')
+      $('.infoPage').css('transform','translateZ(0)')
+      // document.getElementsByClassName('infoPage')[0].style.transform='translateZ(0)'
+      //  rulesPage.style.transform="translateZ(0)"
+      //  recordsPage.style.transform="translateZ(0)"
+      // recordsPage.style.transform="translateZ(0) translateY(50vh)"
+    }
+    // function close() {                     //спрятать страницу с информацией
+          
+    //       console.log()
+    //   // document.getElementById("rulesPage").style.animationName='info-hide';
+    //   }
+    window.addEventListener("hashchange", switchToStateFromURLHash,);
+   // window.onhashchange=switchToStateFromURLHash;
+    var SPAState={};
+    // var photos={
+    //   1 : { image:"Hilu3.jpg", comment:"собака Шарик" },
+    //   2 : { image:"Retriever3.jpg", comment:"собака Барбос" }
+    // };
+
+    function switchToStateFromURLHash() {
+      var URLHash=window.location.hash;
+      var stateStr=URLHash.substr(1);
+      if ( stateStr!="" ) { 
+        SPAState={pagename: stateStr}; 
+      }
+      else
+        SPAState={pagename:'main'};
+
+      var pageHTML="";
+      switch ( SPAState.pagename ) {
+        case 'main':
+        $('.infoPage').css('transform','translateZ(0)')
+        // document.getElementsByClassName('infoPage')[0].style.transform='translateZ(0)'
+      //   rulesPage.style.transform="translateZ(0)"
+      //  recordsPage.style.transform="translateZ(0)"
+       // document.querySelector('.game').style.display = "none";
+        // document.getElementById("rulesPage").style.display = "none";
+        
+        // document.getElementById("recordsPage").style.display = "none";
+          break;
+        case 'rules':
+        rulesPage.style.transform="translateZ(0) translateY(100vh)";
+        document.getElementById("recordsPage").style.transform="translateZ(0) translateY(0)";
+        // rulesPage.style.animationName = 'info-show';
+        // document.getElementById("rulesPage").classList.add("infoPage")
+          //   document.querySelector('.game').style.display = "none";
+          //  document.getElementById("rulesPage").style.display = "block";
+          // document.querySelector(.infoPage).style.transform="translateZ(0) translateY(50vh)";
+            // document.getElementById("rulesPage").style.transform="translateZ(0) translateY(50vh)";
+            // document.getElementById("recordsPage").style.transform="translateZ(0) translateY(0)";
+            //  document.getElementById("recordsPage").style.display = "none";
+  
+  //  if(play){
+  //           confirm('Внимание! Текущий прогресс игры будет потерян')
+  //  }
+          // pageHTML+=`<div id='rulesPage' class='infoPage'><h3>Цель игры :</h3>
+          // <p>
+          // Разбить все цветные кирпичи, маневрируя платформой, подставляя её под мяч, предотвращая его падение вниз.
+          // </p>
+          // <h3>Как играть:</h3>
+          // <p>
+          // Управлять платформой можно с помощью мыши или кнопок &laquo;влево &ndash; вправо &raquo; на ПК. Пальцем на тачскрине на мобильном устройстве. 
+          // Закрыть это окно Вы можете двойным нажатием.
+          // Удачи!
+          // </p>
+          // <br>
+          // </div>`;
+          // include("script/options.js");
+          break;
+        case 'records':
+       // document.querySelector('.game').style.display = "none";
+       document.getElementById("recordsPage").style.transform="translateZ(0) translateY(100vh)";
+       document.getElementById("rulesPage").style.transform="translateZ(0) translateY(0)";
+        // document.getElementById("recordsPage").style.display = "block";
+        // document.getElementById("recordsPage").style.transform="translateZ(0) translateY(50vh)";
+        // document.getElementById("rulesPage").style.display = "none";
+        // pageHTML+=`<div id='recordsPage' class='infoPage'><h1>records</h1></div>`;
+          break;
+      }
+      // document.getElementById('IPage').innerHTML=pageHTML;
+    }
+  
+    // <input type=button value='Закрыть' onclick='closeInfoPage();'>
+    function switchToState(newState) {
+      var stateStr=newState.pagename;
+      location.hash=stateStr;
+    }
+  
+    function switchToMainPage() {
+      switchToState( { pagename:'main' } );
+    }
+  
+    function switchToRulesPage() {
+      switchToState( { pagename:'rules'} );
+    }
+  
+    function switchToRecordsPage() {
+      switchToState( { pagename:'records' } );
+    }
+  
+    switchToStateFromURLHash();
+  
+  </script>
+  
+  <!-- onclick='start()' -->
+
+  <!-- Игра а потом Новая игра  -->
+   <!-- <input type=button value='Новая игра' onclick='switchToMainPage()' > -->
+   <input type='button' class='buttonControlPage' value='NEW GAME' onclick='switchToMainPage(); start();'>
+  <!-- <input type=button value='Правила' onclick='switchToRulesPage(); rulesPageFunc(); moveInfoPage()'>
+  <input type=button value='Таблица рекордов' onclick='switchToRecordsPage(); recordsPageFunc(); moveInfoPage()'> -->
+  <input type='button' class='buttonControlPage' value='RULES' onclick='switchToRulesPage(); '>
+  <input type='button' class='buttonControlPage' value='HIGH SCORES' onclick='switchToRecordsPage(); refreshMessages()'>
+
+  <script>
+    'use strict'
+   
+    // self.resize = function () {    //запускаем функцию изменения размера
+    //     cellWidthHeight = myView.buildScreen();  //пересчитываем размеры
+    //     myView.resizeField(cellWidthHeight);    //изменяем размеры эл-тов
+    // }
+    let resizeFunc = function () {    //запускаем функцию изменения размера
+        isResize=true;
+        buildScreen();  //пересчитываем размеры
+        resizeGame();// myView.resizeField(cellWidthHeight);    //изменяем размеры эл-тов
+    }
+    let clientWidth=document.documentElement.clientWidth;
+            let clientHeight=document.documentElement.clientHeight;
+    function getWindowClientSize() {                  //узнать размер окна
+        let uaB = navigator.userAgent.toLowerCase(),
+            isOperaB = (uaB.indexOf('opera') > -1),
+            isIEB = (!isOperaB && uaB.indexOf('msie') > -1);
+            clientWidth=document.documentElement.clientWidth;
+            clientHeight=document.documentElement.clientHeight;
+
+        // let clientWidth = ((document.compatMode || isIEB) && !isOperaB) ?
+        //     (document.compatMode == 'CSS1Compat') ?
+        //         document.documentElement.clientWidth :
+        //         document.body.clientWidth :
+        //     (document.parentWindow || document.defaultView).clientWidth;
+
+        // let clientHeight = ((document.compatMode || isIEB) && !isOperaB) ?
+        //     (document.compatMode == 'CSS1Compat') ?
+        //         document.documentElement.clientHeight :
+        //         document.body.clientHeight :
+        //     (document.parentWindow || document.defaultView).clientHeight
+
+        return {width: clientWidth, height: clientHeight}
+    }
+ let brickRectArr
+    let cellWidthHeight;  //размер ячейки
+    let b;         //коэффициент, для расчета размера ячейки от размера экрана
+    let svgGame=document.getElementById('svgGameId')
+    let buildScreen = function () {              //функция перестройки экрана в зависимости от устройства, размера и ориентации экрана
+        let pageWidth = getWindowClientSize().width,
+            pageHeight = getWindowClientSize().height;
+
+        const devices = new RegExp('Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini', "i");
+        
+        if (clientWidth<=780) {//мобильник или планшет
+        //   document.querySelector('.container').style.flexDirection = 'column';
+        //   document.querySelector('.menu').style.flexDirection = 'row';
+         
+          b = Math.round(Math.round(pageHeight / 100) * 0.75);
+
+          svgGame.setAttribute("width", getWindowClientSize().width);
+        svgGame.setAttribute("height", 0.95*getWindowClientSize().height);
+
+        document.querySelector('.menu').style.width = getWindowClientSize().width + 'px';
+        document.querySelector('.menu').style.height = 0.05*getWindowClientSize().height + 'px';
+        document.querySelector('.game').style.width = getWindowClientSize().width + 'px';  //размеры игры
+        document.querySelector('.game').style.height = 0.95*getWindowClientSize().height + 'px';
+        
+        // scoreSVG.setAttribute('x', getWindowClientSize().width/2);
+        
+        
+        
+        // console.log('780')
+          // console.log(document.querySelector('.game').style.width)
+          // console.log(getWindowClientSize().width)
+        // header.classList.remove('is-desktop');
+
+            // if (pageWidth > pageHeight) {
+            //     field.style.flexDirection = 'row';
+            //     buttons.style.flexDirection = 'column';
+            //     if ((pageWidth / pageHeight < 1.2 &&
+            //         pageWidth / pageHeight > 1) ||
+            //         (pageHeight / pageWidth < 1.1 &&
+            //             pageHeight / pageWidth > 1)) {
+            //         b = Math.round(Math.round(pageHeight / 100) * 0.75);
+            //     } else {
+            //         b = Math.round(Math.round(pageHeight / 100) * 0.95);
+            //     }
+            // } else {
+            //     field.style.flexDirection = 'column';
+            //     buttons.style.flexDirection = 'row';
+            //     if ((pageWidth / pageHeight < 1.35 &&
+            //         pageWidth / pageHeight > 1) ||
+            //         (pageHeight / pageWidth < 1.35 &&
+            //             pageHeight / pageWidth > 1)) {
+            //         b = Math.round(Math.round(pageWidth / 100) * 0.75);
+            //     } else {
+            //         b = Math.round(Math.round(pageWidth / 100) * 0.95);
+            //     }
+            // }
+        } else {                                 //ПК
+
+        //   document.querySelector('.container').style.flexDirection = 'row';
+        //   document.querySelector('.container').style.justifyContent = 'space-around';
+        //   document.querySelector('.container').style.alignItems = 'center';
+        //   document.querySelector('.menu').style.flexDirection = 'column';
+        //   document.querySelector('.menu').style.justifyContent = 'center';
+        //   document.querySelector('.menu').style.alignItems = 'center';
+          b = Math.round(Math.round(pageHeight / 100) * 0.75);
+
+
+          svgGame.setAttribute("width", 0.6*getWindowClientSize().width);
+        svgGame.setAttribute("height", getWindowClientSize().height);
+
+        document.querySelector('.menu').style.width = 0.15 * getWindowClientSize().width + 'px';
+        document.querySelector('.game').style.width = 0.6 * getWindowClientSize().width + 'px';  //размеры игры
+        document.querySelector('.game').style.height = getWindowClientSize().height + 'px';
+
+        // scoreSVG.setAttribute('x', 0.7*getWindowClientSize().width/2);
+        
+        
+        // header.classList.add('is-desktop');
+            // if (pageWidth > pageHeight) {
+            //     b = Math.round(Math.round(pageHeight / 100) * 0.75);
+            //     field.style.flexDirection = 'row';
+            //     buttons.style.flexDirection = 'column';
+            // } else {
+            //     b = Math.round(Math.round(pageWidth / 100) * 0.75);
+            //     field.style.flexDirection = 'column';
+            //     buttons.style.flexDirection = 'row';
+            // }
+        }
+
+        cellWidthHeight = b * 10;   // размер ячейки
+        
+
+
+        // speedExch = cellWidthHeight / 10;   //скорость обмена
+        // speedFall = cellWidthHeight / 10;  // скорость падения
+
+        // document.querySelector('.game').style.width = rows * cellWidthHeight + 'px';  //размеры игры
+        // document.querySelector('.game').style.height = columns * cellWidthHeight + 'px';
+
+        // svgGame.setAttribute("width", rows * cellWidthHeight);
+        // svgGame.setAttribute("height", columns * cellWidthHeight);
+        
+        
+
+        return cellWidthHeight
+    }
+
+    function resizeGame(){
+      
+      if (clientWidth>=780){//ПК
+        let widthPK=0.6*getWindowClientSize().width;
+        let heightPK=getWindowClientSize().height;
+        resizeAllScreen(widthPK, heightPK)
+//score
+        // scoreSVG.setAttribute('x', widthPK/2);
+//ball
+        ballIdJs.setAttribute('r', widthPK*0.02);
+        ball.posY=(heightPK*0.85+widthPK*0.02)-widthPK*0.02;
+//rocket
+        rocket.setAttribute('height', widthPK*0.015);
+
+
+      }else{
+
+        let widthMob=getWindowClientSize().width;
+        let heightMob=0.95*getWindowClientSize().height;
+        resizeAllScreen(widthMob, heightMob)
+//score        
+        // scoreSVG.setAttribute('x', widthMob/2);
+//ball
+        ballIdJs.setAttribute('r', widthMob*0.025);
+        ball.posY=(heightMob*0.85+widthMob*0.02)-widthMob*0.025;
+//rocket
+        rocket.setAttribute('height', widthMob*0.02);
+      }
+
+      function resizeAllScreen(width, height){
+//score        
+        scoreSVG.setAttribute('x', width/2);
+//ball
+        // ballIdJs.setAttribute('r', widthMob*0.027);
+        // ballIdJs.setAttribute('cx', width/2);
+        ball.posX=width/2;
+        // ball.posY=(height*0.85+width*0.02)-rBall;
+        // ballIdJs.setAttribute('y', 0.8*height)
+//rocket
+
+        rocket.setAttribute('width', width*0.3);
+        // rocket.setAttribute('height', width*0.02);
+        rocket.setAttribute('x', (width-width*0.3)/2);
+        rocket.setAttribute('y', (height*0.85+width*0.02));
+        // rocket.posX=(width-widthRocket)/2;
+        // rocketGame.posX=(width-width*0.3)/2;
+        
+        // rocketGame.update()
+//brick
+        brickRectArr=brickRect.flat();
+        for(let i=0; i< brickRectArr.length; i++){
+            let id = brickRectArr[i].getAttribute('id'),
+                row = id[1],
+                column = id[0];
+
+               
+            //     var brickX = (c*(brickWidth+brickPadding))+brickOffsetLeft;
+            //   var brickY = (r*(brickHeight+brickPadding))+brickOffsetTop;
+            brickRectArr[i].setAttribute('width', width*0.12);
+            brickRectArr[i].setAttribute('height', height*0.04);
+            // brickPadding =width*0.01;
+            brickOffsetTop = height*0.12
+            brickOffsetLeft = (width-(brickColumnCount*width*0.12+(brickColumnCount-1)*brickPadding))/2;
+            // console.log((width-(brickColumnCount*width*0.12+(brickColumnCount-1)*width*0.01))/2)
+            brickRectArr[i].setAttribute("x",  (row*(width*0.12+brickPadding))+brickOffsetLeft);
+                brickRectArr[i].setAttribute("y",  (column*(height*0.04+brickPadding))+brickOffsetTop);
+        }
+      }
+    //   return(widthRocket);
+//  return({widthRocket: widthRocket});
+      
+    //    brickWidth = widthField*0.12; 
+    // brickHeight = heightField*0.04; 
+    //  brickOffsetTop = heightField*0.12; 
+
+    // brickOffsetLeft = (widthField-(brickColumnCount*brickWidth+(brickColumnCount-1)*brickPadding))/2;
+    }
+    window.addEventListener('resize', resizeFunc); 
+    let isResize=false;
+    buildScreen()
+    
+        svgGame.style.overflow='hidden';
+        // svgGame.setAttribute("width", 0.7 * getWindowClientSize().width);
+        // svgGame.setAttribute("height", getWindowClientSize().height);
+        // // svgGame.setAttribute("height", 0.99*getWindowClientSize().height);
+
+        // document.querySelector('.game').style.width = 0.7 * getWindowClientSize().width + 'px';
+        // document.querySelector('.game').style.height = getWindowClientSize().height + 'px';
+        
+        // document.querySelector('.menu').style.width = 0.2 * getWindowClientSize().width + 'px';
+
+
+
+
+    let menuJs=document.querySelector('.menu');
+    let buttonControlPageJs=document.querySelectorAll('.buttonControlPage')
+    for (let i=0; i<buttonControlPageJs.length; i++){
+      menuJs.appendChild(buttonControlPageJs[i])
+    }
+
+    var RAF=
+      window.requestAnimationFrame ||
+      window.webkitRequestAnimationFrame ||
+      window.mozRequestAnimationFrame ||
+      window.oRequestAnimationFrame ||
+      window.msRequestAnimationFrame ||
+      function(callback)
+      { window.setTimeout(callback, 1000 / 60); }
+
+    let infoPageJs=document.querySelector('.infoPage');
+  
+    //   function moveInfoPage() {
+    //     document.getElementById("rulesPage").style.transform="translateZ(0) translateY(20px)";
+    // //     let infoPageJs=document.querySelector('.infoPage');
+    // //     // for (let i=0; i<infoPageJs.length; i++){
+    // //  infoPageJs.style.transform="translateZ(0) translateY(0)";
+    // //  infoPageJs[i].style.webkitTransform="translateZ(0) translateY(100%)";
+    // // }
+
+    // }
+
+    // function closeInfoPage(){
+
+    // }
+    
+
+//audio
+    var clickAudio=new Audio;
+    if ( clickAudio.canPlayType("audio/mpeg")=="probably" ){
+      clickAudio.src="sounds/brick.mp3";
+      // clickAudio.src="http://fe.it-academy.by/Examples/Sounds/button-16.ogg";
+      clickAudio.type="audio/mp3";
+    } else{
+      clickAudio.src="sounds/brick.ogg";
+    }
+
+    let mobile;
+    if ( clickAudio.canPlayType("audio/mpeg")=="maybe" ){
+      mobile=true;
+      clickAudio.src="sounds/brick.mp3";
+      clickAudio.type="audio/mp3";
+    } else{
+      clickAudio.src="sounds/brick.ogg";
+    }
+
+
+
+
+        
+
+
+  //     let clientWidth
+  // let clientHeight
+  // clientWidth=document.documentElement.clientWidth;
+  // clientHeight=document.documentElement.clientHeight;
+
+  // function dr(){
+  //   if(clientWidth<500){
+  //   clientHeight=300
+  //   svgGame.width=370
+  // }
+  // }
+
+
+//     go();
+// window.addEventListener('resize', go);
+
+// function go(){
+//   // document.querySelector('.width').innerText = document.documentElement.clientWidth;
+//   // document.querySelector('.height').innerText = document.documentElement.clientHeight;
+//   clientWidth=document.documentElement.clientWidth;
+//   clientHeight=document.documentElement.clientHeight;
+//   console.log('clientWidth '+document.documentElement.clientWidth) 
+//   console.log('clientHeight '+document.documentElement.clientHeight) 
+//   //rocketGame.posY();
+// }
+
+    // function checkMediaQuery() {
+    //   if (window.innerWidth < 780) {
+    //   console.log('Media Query Matched!')
+    //   field.style.width='100vw';
+    //   let widthFieldMob=document.documentElement.clientWidth;
+    //   console.log(widthFieldMob)
+    //   ball.setAttribute('r', widthFieldMob*0.03);  
+    //   }
+    // }
+    // window.addEventListener('resize', checkMediaQuery);
+
+    //window.addEventListener('resize', checkMediaQuery);
+//     function checkMediaQuery() {
+//   if (window.innerWidth < 780) {
+//     console.log('Media Query Matched!')
+//     field.style.width='100vw';
+//     let widthFieldMob=document.documentElement.clientWidth;
+//     console.log(widthFieldMob)
+//     ball.setAttribute('r', widthFieldMob*0.03);
+
+//   }
+// }
+
+
+//field
+    let field=document.querySelector('.game');
+    let widthField=svgGame.getBoundingClientRect().width; // все построения от ширины
+    let heightField=svgGame.getBoundingClientRect().height;
+    // field.style.width=widthField+'px';
+  //   console.log('widthField '+widthField) 
+  // console.log('heightField '+heightField) 
+        //let svgGame=document.getElementById('svgGameId');
+
+
+
+//svgJs 
+
+    // let svgGame=document.createElementNS("http://www.w3.org/2000/svg",'svg');
+    // svgGame.setAttribute('width', widthField);
+    // svgGame.setAttribute('height', clientHeight);
+    // // svgGame.width=widthField
+    // // svgGame.height=clientHeight
+    // field.appendChild(svgGame)
+    // console.log('svg'+svgGame.width)
+    
+    let widthRocket;
+    var brickWidth;
+    if(clientWidth>=780){
+        widthRocket=function(){return (0.6*getWindowClientSize().width*0.3)}
+        brickWidth=function(){return (0.6*getWindowClientSize().width*0.12)}
+}else{
+    widthRocket=function(){return (getWindowClientSize().width*0.3)}
+    brickWidth=function(){return (getWindowClientSize().width*0.12)}
+}
+
+
+//brickall 
+    var brickRowCount = 4; //кол-во строк
+    var brickColumnCount = 6; //кол-во столбцов
+    // var brickWidth = widthField*0.12; //
+    var brickHeight = heightField*0.04; //
+    // var brickPadding =widthField*0.01;
+    var brickPadding =10;
+   // var brickPadding = (widthField-(brickWidth*(brickColumnCount+2)))/brickColumnCount; // расстояние между
+    var brickOffsetTop = heightField*0.12; // отступ сверху
+    /* var brickOffsetLeft = 30; */
+    var brickOffsetLeft = (widthField-(brickColumnCount*brickWidth()+(brickColumnCount-1)*brickPadding))/2;
+
+    var bricks = [];
+    for(var r=0; r<brickRowCount; r++) {
+        bricks[r] = [];
+        for(var c=0; c<brickColumnCount; c++) {
+            bricks[r][c] = { x: 0, y: 0, status: 1 };
+        }
+    }
+    let brick;
+    let brickRect=[];
+     //let color=`<defs><linearGradient x1='0%' y1='0%' x2='0%' y2='100%'><stop offset='0%' stop-color=white /><stop offset='80%' stop-color=#7FFF00 /> <stop offset='100%' stop-color=#7FFF00 stop-opacity=0.5 /></linearGradient></defs>`
+        //color=`red`
+
+        
+
+    function drawBricks() {
+        for(var r=0; r<brickRowCount; r++) {
+          
+            for(var c=0; c<brickColumnCount; c++) {
+              if(bricks[r][c].status == 1){
+                var brickX = (c*(brickWidth()+brickPadding))+brickOffsetLeft;
+              var brickY = (r*(brickHeight+brickPadding))+brickOffsetTop;
+                bricks[r][c].x = brickX;
+                bricks[r][c].y = brickY;
+                brick=document.createElementNS("http://www.w3.org/2000/svg",'rect');
+                
+                brick.setAttribute('x', brickX);
+                brick.setAttribute('y', brickY);
+                brick.setAttribute('width', brickWidth());
+                brick.setAttribute('height', brickHeight);
+                brick.setAttribute('rx', '10');
+                brick.setAttribute('id', r+''+c);
+                brick.setAttribute('del', 'false');
+                brick.style.transitionDuration='300ms';
+                brick.style.transitionTimingFunction='linear';
+                brick.style.overflow='hidden';
+                // brick.setAttribute.style('transition-duration', '3s');
+                // brick.setAttribute('transition-timing-function', 'linear');
+                // brick.setAttribute('overflow', 'hidden');
+              // createGradient(colorChoice())
+              const colorArr=['#7FFF00', '#FF0000', '#FFFF14', '#9932CC', '#0000FF']
+    function colorChoice(){
+      return colorArr[Math.floor(Math.random() * colorArr.length)]
+    }
+        
+        // function createGradient(color) {
+    var defs = document.createElementNS("http://www.w3.org/2000/svg",'defs');
+    var linearGradient = document.createElementNS("http://www.w3.org/2000/svg",'linearGradient');
+    linearGradient.setAttribute('x1', '0%');
+    linearGradient.setAttribute('x2', '0%');
+    linearGradient.setAttribute('y1', '0%');
+    linearGradient.setAttribute('y2', '80%');
+    defs.appendChild(linearGradient);
+    linearGradient.setAttribute('id', colorChoice());
+
+    var stop1 = document.createElementNS("http://www.w3.org/2000/svg",'stop');
+    stop1.setAttribute("offset", "2%");
+    stop1.setAttribute("stop-color", "#424242");
+
+    var stop2 = document.createElementNS("http://www.w3.org/2000/svg",'stop');
+    stop2.setAttribute("offset", "100%");
+    stop2.setAttribute("stop-color",colorChoice());
+
+    svgGame.appendChild(defs);
+    defs.appendChild(linearGradient);
+    linearGradient.appendChild(stop1);
+    linearGradient.appendChild(stop2);
+      // }
+      //createGradient(colorChoice())
+            brick.setAttribute('fill', `url(#${colorChoice()})`);
+            //console.log(`5${brick.style.fill}5`)
+            //stop2.setAttribute("stop-color",colorChoice());
+            
+            //brick.setAttribute('fill', `<defs><linearGradient x1='0%' y1='0%' x2='0%' y2='100%'><stop offset='0%' stop-color=white /><stop offset='80%' stop-color=#7FFF00 /> <stop offset='100%' stop-color=#7FFF00 stop-opacity=0.5 /></linearGradient></defs>`);
+           // brick.style.fill =`${color}`
+           // brick.setAttribute('fill', `<lineargradient x1='0%' y1='0%' x2='0%' y2='100%'><stop offset='0%' stop-color=white /><stop offset='80%' stop-color=#7FFF00 /> <stop offset='100%' stop-color=#7FFF00 stop-opacity=0.5 /></lineargradient>`);
+
+            // console.log(brick)
+            // console.log(bricks[c][r])
+            //svgGame.appendChild(brick);
+           // stop2.setAttribute("stop-color",colorChoice());
+            brickRect.push(brick)
+            svgGame.appendChild(brick);
+            //console.log(brick.style.fill.defs.linearGradient.stop2)
+            //console.log(`5${brick.style.fill}5`)
+          }
+          }
+    }
+    }
+   drawBricks();
+    //brick.style.fill.innerHTML=color
+
+
+    // delete brick 
+//     function collision(){
+//         // for(let i=0; i< brickRectArr.length; i++){
+//         //     let id = brickRectArr[i].getAttribute('id'),
+//         //         row = id[1],
+//         //         column = id[0];
+
+//         // }
+//         for(let i=0; i< brickRect.length; i++){
+//             var bx=brickRect[i].getAttribute('x')
+//             var by=brickRect[i].getAttribute('y')
+// console.log(bx+''+by)
+// if(ball.posX+rBall > bx && ball.posX-rBall < bx+brickWidth() && ball.posY+rBall > by && ball.posY-rBall<by+brickHeight){
+//     ball.speedY=-ball.speedY;
+// }
+//         }
+//     }
+//     collision()
+    function collisionDetection() {
+      for(var r=0; r<brickRowCount; r++) {
+        for(var c=0; c<brickColumnCount; c++) {
+          var b = bricks[r][c]; // конкретный кирпич
+              
+                // calculations
+                //ball.posX-rBall > b.x && ball.posX+rBall < b.x+brickWidth && ball.posY+rBall > b.y && ball.posY < b.y+brickHeight
+               if(b.status == 1){
+                                   // if(ball.posX+rBall > b.x && ball.posX-rBall < b.x+brickWidth && ball.posY-rBall> b.y && ball.posY-rBall< b.y+brickHeight) 
+               //if(ball.posX+rBall > b.x && ball.posX-rBall < b.x+brickWidth && ball.posY-rBall  > b.y && ball.posY-rBall < b.y+brickHeight) {
+                 if(ball.posX+rBall > b.x && ball.posX-rBall < b.x+brickWidth() && ball.posY+rBall > b.y && ball.posY-rBall<b.y+brickHeight){
+                ball.speedY=-ball.speedY;
+                console.log(bricks)
+                console.log(brickColumnCount*brickRowCount)
+                // console.log(b)
+                // console.log(r)
+                // console.log(c)
+                  b.status = 0;
+                 var textElem=document.getElementById(r+''+c)
+                //  var textElem=document.querySelector(`rect[x='${b.x}'][y='${b.y}']`);
+                  textElem.style.height='0'; textElem.style.width='0'; textElem.style.y='0'
+                  //brick.setAttribute('fill', 'yellow');
+                  //console.log(document.querySelector("rect[x='30'][y='30']"))
+                                    //brick.setAttribute("style","display:none;");
+                  // document.querySelector(`rect[x='${b.x}'][y='${b.y}']`).setAttribute("style","display:none;");
+                  // document.querySelector(`rect[x='${b.x}'][y='${b.y}']`).setAttribute("fill","red");
+    //               function anim() {
+    //     var textElem=document.querySelector(`rect[x='${b.x}'][y='${b.y}']`);
+    //     console.log(textElem);
+    //     // сначала померяем текущую высоту и явно её установим элементу
+    //     var currHeight=textElem.getBoundingClientRect().height;
+    //     var currWidth=textElem.getBoundingClientRect().width;
+    //     var currX=textElem.getBoundingClientRect().x;
+    //     var currY=textElem.getBoundingClientRect().y;
+    //     // console.log(currHeight);
+    //     // textElem.style.height=currHeight;
+    //     // textElem.style.height=currWidth;
+    //     // и в следующий Idle запустим анимацию
+    //     setTimeout(function() { textElem.style.height='0'; textElem.style.width='0'; textElem.style.y='0'}, 0);
+    // }
+    //  anim()
+                  
+                  // brick.setAttribute('rx', '15');
+                  clickSound();
+                  score++;
+                  scoreSVG.innerHTML=`SCORE: ${score}`
+                  if(score==brickColumnCount*brickRowCount){
+                    ball.speedX=0;
+                    ball.speedY=0;
+                    // field.appendChild(endGameFunc('YOU WIN !'));
+                    document.getElementById("end").innerHTML=endGameFunc('YOU WIN !');
+                    // document.getElementById("endGamePage").style.transform="translateZ(0) translateY(50vh)";
+                  }
+              
+                  }
+
+               }
+
+  
+        }
+             
+      }
+            
+                  
+
+    }
+       
+                
+               
+           
+    
+  
+
+//rocketall
+    let rocket; 
+//     let widthRocket;
+//     if(clientWidth>=780){
+//         widthRocket=function(){return (0.6*getWindowClientSize().width*0.3)}
+// }else{
+//     widthRocket=function(){return (getWindowClientSize().width*0.3)}
+// }
+
+    let heightRocket;
+    let rightPressed = false;
+    let leftPressed = false;
+    document.addEventListener("keydown", keyDown);
+    document.addEventListener("keyup", keyUp);
+     document.addEventListener("mousemove", mouseMove);
+
+    function Rocket(){
+    let self=this;
+
+    rocket=document.createElementNS("http://www.w3.org/2000/svg",'rect');
+    // widthRocket=widthField*0.3;
+   
+    if(clientWidth>=780){
+        heightRocket=widthField*0.015;; //радиус мяча
+    } else{
+        heightRocket=widthField*0.02;;
+    }
+    self.posX=(widthField-widthRocket())/2;
+    self.posY=heightField*0.85+heightRocket;
+    // self.posY=heightField-heightRocket;
+    // self.posX=0;
+    // self.posY=0;
+ 
+    rocket.setAttribute('x', self.posX);//середина
+    rocket.setAttribute('y', self.posY);//380
+    rocket.setAttribute('width', widthRocket());
+    rocket.setAttribute('height', heightRocket);
+    rocket.setAttribute('rx', '30');
+    rocket.setAttribute('fill', 'url(#Shiny)');
+    rocket.setAttribute('id', 'rocketId');
+    svgGame.appendChild(rocket)
+
+    // rocketName.style.position='absolute';
+
+    // widthRocket=widthField*0.015;
+    // heightRocket=heightField*0.25;
+    // rocketName.style.width=widthRocket+'px';
+    // rocketName.style.height=heightRocket+'px';
+    // rocketName.style.backgroundColor='#09AA57';
+    // field.appendChild(rocketName)
+
+    self.speedX=8;
+
+    self.right=function(){
+        self.posX+=self.speedX;
+        if(self.posX+widthRocket()>widthField){
+            self.posX=widthField-widthRocket();
+        }
+        return self;
+    }
+    self.left=function(){
+        self.posX-=self.speedX;
+        if(self.posX<0){
+            self.posX=0;
+        }
+        return self;
+    }
+    self.update=function(){
+      rocket.setAttribute('x', self.posX);
+      //rocket.style.transform="translateX("+self.posX+"px) translateZ(0)";
+        return self;
+    }
+    }
+
+    let rocketGame=new Rocket();
+    // console.log(rocketGame.posY)
+
+            // function createGradient(color) {
+    var defs = document.createElementNS("http://www.w3.org/2000/svg",'defs');
+    var radialGradient = document.createElementNS("http://www.w3.org/2000/svg",'radialGradient');
+    radialGradient.setAttribute('cx', '0.5');
+    radialGradient.setAttribute('cy', '0.5');
+    radialGradient.setAttribute('fx', '0.25');
+    radialGradient.setAttribute('fy', '0.25');
+    radialGradient.setAttribute('r', '0.5');
+    defs.appendChild(radialGradient);
+    radialGradient.setAttribute('id', "Shiny");
+
+    var stop1 = document.createElementNS("http://www.w3.org/2000/svg",'stop');
+    stop1.setAttribute("offset", "0%");
+    stop1.setAttribute("stop-color", "#ffffff");
+
+    var stop2 = document.createElementNS("http://www.w3.org/2000/svg",'stop');
+    stop2.setAttribute("offset", "60%");
+    stop2.setAttribute("stop-color",'#8CB0D4');
+
+    var stop3 = document.createElementNS("http://www.w3.org/2000/svg",'stop');
+    stop3.setAttribute("offset", "100%");
+    stop3.setAttribute("stop-color","#424242");
+
+    svgGame.appendChild(defs);
+    defs.appendChild(radialGradient);
+    radialGradient.appendChild(stop1);
+    radialGradient.appendChild(stop2);
+    radialGradient.appendChild(stop3);
+    //   // }
+    //   //createGradient(colorChoice())
+    //         brick.setAttribute('fill', `url(#${colorChoice()})`);
+    //         //console.log(`5${brick.style.fill}5`)
+    //         //stop2.setAttribute("stop-color",colorChoice());
+            
+    //         //brick.setAttribute('fill', `<defs><linearGradient x1='0%' y1='0%' x2='0%' y2='100%'><stop offset='0%' stop-color=white /><stop offset='80%' stop-color=#7FFF00 /> <stop offset='100%' stop-color=#7FFF00 stop-opacity=0.5 /></linearGradient></defs>`);
+    //        // brick.style.fill =`${color}`
+    //        // brick.setAttribute('fill', `<lineargradient x1='0%' y1='0%' x2='0%' y2='100%'><stop offset='0%' stop-color=white /><stop offset='80%' stop-color=#7FFF00 /> <stop offset='100%' stop-color=#7FFF00 stop-opacity=0.5 /></lineargradient>`);
+
+    //         // console.log(brick)
+    //         // console.log(bricks[c][r])
+    //         //svgGame.appendChild(brick);
+    //        // stop2.setAttribute("stop-color",colorChoice());
+    //         brickRect.push(brick)
+    //         svgGame.appendChild(brick);
+    //         //console.log(brick.style.fill.defs.linearGradient.stop2)
+    //         //console.log(`5${brick.style.fill}5`)
+    //       }
+    //       }
+    // }
+    // }
+    // drawBricks();
+    // //brick.style.fill.innerHTML=color
+
+    //11ballall
+    //let ballIdJs=document.getElementById('ballId')
+    let ballIdJs=document.createElementNS("http://www.w3.org/2000/svg",'circle');
+    //brick.setAttribute('fill', `url(#${colorChoice()})`);
+    svgGame.appendChild(ballIdJs)
+    ballIdJs.setAttribute("id",'ballId');
+    ballIdJs.setAttribute('fill', 'url(#Shiny)');
+
+    let rBall;
+    if(clientWidth>=780){
+        rBall=widthField*0.02; //радиус мяча
+    } else{
+        rBall=widthField*0.025;
+    }
+    
+    function Ball(id){
+      let self=this;
+      id.setAttribute('r',rBall); 
+      //id.setAttribute('fil','url(#Shiny)'); 
+      // let cx=widthField/2;
+      // let cy=heightField/2;
+      self.posX=widthField/2; //расположения центра мяча x
+      //self.posY=heightField/2; //расположения центра мяча y
+      self.posY=rocketGame.posY-rBall;
+      // self.posY=heightField*0.85;
+      // id.setAttribute('cx',cx);
+      // id.setAttribute('cy',cy);
+      self.width=rBall*2;
+      self.height=rBall*2;
+      self.update= function(){
+        // id.style.transform="translateX("+self.posX+"px) translateY("+self.posY+"px) translateZ(0)";
+      //rect {
+  /* не работает в IE */
+//   transform: translate(295px,115px);
+// }
+// • применение атрибутов для SVG-атрибута для трансформации:
+
+// <!— работает везде-->
+// <rect width='150' height='80' transform='translate(295 115)' />
+      
+        id.setAttribute('cx',self.posX);
+      id.setAttribute('cy',self.posY);
+      };
+    }
+    let ball=new Ball(ballIdJs)
+  
+ 
+//mousemove
+    function mouseMove(EO) {
+      if(EO.clientX >= field.offsetLeft && EO.clientX <= field.offsetLeft+widthField){
+        rocketGame.posX=EO.clientX- field.offsetLeft
+        if(EO.clientX-field.offsetLeft>widthField-widthRocket()){
+          rocketGame.posX=widthField-widthRocket();   
+        }
+        rocketGame.update();
+      }
+
+//touch   
+    svgGame.ontouchstart=rocketTouchStart;
+    svgGame.ontouchmove=rocketTouchMove;
+    svgGame.ontouchend=rocketTouchEnd;
+
+    var touchShiftX=0;
+    var touchShiftY=0;
+
+  function rocketTouchStart(EO) {
+    EO.preventDefault();
+    console.log('start')
+    var touchInfo=EO.targetTouches[0];
+    touchShiftX=touchInfo.pageX-svgGame.getBoundingClientRect().left;
+    touchShiftY=touchInfo.pageY-svgGame.getBoundingClientRect().top;
+  }
+
+  function rocketTouchEnd(EO) {
+    EO.preventDefault();
+  }
+
+  function rocketTouchMove(EO) {
+    EO.preventDefault();
+    var touchInfo=EO.targetTouches[0];
+    rocketGame.posX=touchInfo.pageX-touchShiftX;
+    if(rocketGame.posX<0){
+      rocketGame.posX=0;
+    } else if(rocketGame.posX+widthRocket()>clientWidth){
+      rocketGame.posX=clientWidth-widthRocket()
+    }
+    rocketGame.update();
+  }
+
+
+
+
+
+    // var relativeX = e.clientX - field.offsetLeft;
+    // if(relativeX >= 0) {
+    //   rocketGame.posX = relativeX;
+    //   rocketGame.update();
+    //  // console.log(rocketGame.posX = relativeX - widthRocket/2)
+    // } else if(relativeX >= widthField)
+    // rocketGame.posX = widthField-widthRocket;
+    //   rocketGame.update();
+}
+
+//score    
+    let score=0;
+
+      var scoreSVG=document.createElementNS("http://www.w3.org/2000/svg",'text');
+      scoreSVG.setAttribute('x', widthField/2);
+      scoreSVG.setAttribute('y', heightField*0.05);
+     scoreSVG.setAttribute('fill', '#d0e2f0');
+      // scoreSVG.setAttribute('font-weight', "bold");
+      // scoreSVG.setAttribute('stroke-width', "3");
+      scoreSVG.setAttribute('font-family', 'Bungee Inline');
+      scoreSVG.setAttribute('text-anchor', "middle");
+      // scoreSVG.setAttribute('stroke', "#9bd6ee");
+      scoreSVG.setAttribute('font-size', String(widthField*0.04));
+    svgGame.appendChild(scoreSVG);
+//HelveticaLeague GothicTrebuchet
+    scoreSVG.innerHTML=`SCORE: ${score}`
+
+    let play = false;
+
+    function start(){
+     // drawBricks()
+     clickSoundInit();
+      play=true;
+      ball.speedX=2;
+      ball.speedY=-2;
+      // ball.speedX=5;
+      // ball.speedY=-4;
+      // ball.posX=300;
+      // ball.posY=300;
+    }
+
+    function keyDown(EO) {
+      EO=EO||window.event;
+     // EO.preventDefault();
+      if(EO.keyCode == 39) {
+        rightPressed = true;
+      }
+      if(EO.keyCode == 37) {
+        leftPressed = true;
+        }
+    }
+
+    function keyUp(EO) {
+        EO=EO||window.event;
+     //   EO.preventDefault();
+        if(EO.key == "ArrowRight") {
+          rightPressed = false;
+        }
+        if(EO.key == "ArrowLeft") {
+          leftPressed = false;
+        }
+    }
+
+    function move(){
+        if(isResize){
+        clientWidth=document.documentElement.clientWidth
+        if(clientWidth>=780){
+           
+            widthField=0.6*clientWidth; //радиус мяча
+            // widthRocket=0.6*clientWidth*0.015
+        } else{
+        widthField=clientWidth;
+        // widthRocket=clientWidth*0.02;
+    }
+        }
+
+       
+      if(play){
+
+        ball.posY+=ball.speedY; // Если мяч двигался вверх со скоростью 2 пикселя за кадр, то теперь он будет двигаться «вверх» со скоростью -2 пикселя, что фактически соответствует движению вниз со скоростью 2 пикселя за кадр.
+//низ 
+//if(ball.posY+rBall>=heightField){
+    if (ball.posX<rocketGame.posX+widthRocket() && ball.posX>rocketGame.posX && rocketGame.posY<rocketGame.posY+heightRocket && ball.posY+rBall>=rocketGame.posY){
+        ball.speedY=-ball.speedY;
+            }
+    if(ball.posY-rBall>rocketGame.posY+heightRocket){
+
+                              ball.speedX=0;
+              ball.speedY=0;
+              document.getElementById("end").innerHTML=endGameFunc('GAME OVER !');
+
+    }
+
+//    if(ball.posY+rBall*2>=heightField){
+//           // if(ball.posY>=heightField*0.85+rBall+heightRocket){
+//             if(ball.posX>rocketGame.posX&&ball.posX<rocketGame.posX+widthRocket){
+//               ball.posY=clientHeight-heightRocket-rBall;
+//               ball.speedY=-ball.speedY;
+ 
+            // else{
+//               ball.speedX=0;
+//               ball.speedY=0;
+//               // ball.posX=100;
+//               // ball.posY=100;
+//               // document.getElementById("end").innerHTML=endGameFunc('GAME OVER !');
+//               // document.getElementById("endGamePage").style.transform="translateZ(0) translateY(50vh)";
+// //               // ball.posX=200;
+// //               // ball.posX=200;
+// //               // alert("GAME OVER");
+// // // function resetBall(){
+// //               //   ball.posX=widthField/2;
+// //               //   ball.posY=rocketGame.posY-rBall;
+// //               //   ball.speedX=3*(Math.random()*2-1);
+// //               //   ball.speedY=-3;
+// //               // }
+// //               // resetBall()//мяч летить в рандомном направлении
+//             }
+//                 //ball.posY=heightField-ball.height;
+//             }
+//верх
+            if(ball.posY-rBall<0){
+                ball.speedY=-ball.speedY;
+               //ball.posY=0;
+            }
+
+            ball.posX+=ball.speedX;    
+            
+      //           if(ball.posX > widthField-ballRadius || ball.posX  < ballRadius) {
+      //             ball.speedX=-ball.speedX;
+      // }
+//правее стены      
+            if (ball.posX+rBall>=widthField){
+                // if(ball.posY+heightBall>=right.posY&&ball.posY<=right.posY+heightRocket){
+                //     ball.posX=widthField-ball.width-widthRocket;
+                    ball.speedX=-ball.speedX;
+                // }else if(play===true){
+                //     countText=`${pointLeft+=1}:${pointRight}`;
+                //     count.innerHTML=countText;
+                //     ball.speedX=0;
+                //     ball.speedY=0;
+                //     play=false;
+                // }         
+            }
+
+//левее стены
+            if (ball.posX-rBall<0){
+                // if(ball.posY+heightBall>=left.posY&&ball.posY<=left.posY+heightRocket){
+                //     ball.posX=widthRocket;
+                    ball.speedX=-ball.speedX;
+                // }else if(play===true){
+                //     countText=`${pointLeft}:${pointRight+=1}`;
+                //     count.innerHTML=countText
+                //     ball.speedX=0;
+                //     ball.speedY=0;
+                //     play=false;
+                // }
+            }
+          }
+
+            if(rightPressed) {
+              rocketGame.right().update();        
+            }
+            if(leftPressed) {
+              rocketGame.left().update(); 
+            }
+
+        ball.update();
+        collisionDetection();
+        RAF(move);
+        }
+        move();
+
+    function clickSoundInit() {
+      clickAudio.play(); // запускаем звук
+      clickAudio.pause(); // и сразу останавливаем
+    }
+
+    function clickSound() {
+      if (!mobile){
+        clickAudio.currentTime=0; // в секундах
+        clickAudio.play();
+      } else{
+        clickAudio.load();
+        clickAudio.play();
+      }
+    }
+
+
+
+    // function closePage(){
+    //   let buttonConfirmArr=document.querySelectorAll('.buttonConfirm');
+    //   for (let i=0; i<buttonConfirmArr.length; i++){
+    //     document.getElementById("rulesPage").style.display='none';
+    //     document.getElementById("recordsPage").style.display='none';
+    //     document.querySelector('.info').style.display='none';
+    //   }
+    
+    // }
+
+// function getName(){
+// document.querySelector('.info').style.display='block';
+// }
+
+
+//ajaxall
+var ajaxHandlerScript="https://fe.it-academy.by/AjaxStringStorage2.php";
+var messages; // элемент массива - {name:'Иванов',mess:'Привет'};
+var updatePassword;
+var stringName='yakovleva_game_records';
+
+// показывает все сообщения из messages на страницу
+function showMessages() {
+    var str='';
+    for ( var m=0; m<messages.length; m++ ) {
+        var message=messages[m];
+        str+="<b>"+escapeHTML(message.name)+" : </b> "
+            +escapeHTML(message.mess)+"<br />";
+    }
+    document.getElementById('IChat').innerHTML=str;
+}
+
+function escapeHTML(text) {
+    if ( !text )
+        return text;
+    text=text.toString()
+        .split("&").join("&amp;")
+        .split("<").join("&lt;")
+        .split(">").join("&gt;")
+        .split('"').join("&quot;")
+        .split("'").join("&#039;");
+    return text;
+}
+
+// получает сообщения с сервера и потом показывает
+function refreshMessages() {
+    $.ajax( {
+            url : ajaxHandlerScript,
+            type : 'POST', dataType:'json',
+            data : { f : 'READ', n : stringName },
+            cache : false,
+            success : readReady,
+            error : errorHandler
+        }
+    );
+}
+
+function readReady(callresult) { // сообщения получены - показывает
+    if ( callresult.error!=undefined )
+        alert(callresult.error);
+    else {
+        messages=[];
+        if ( callresult.result!="" ) { // либо строка пустая - сообщений нет
+            // либо в строке - JSON-представление массива сообщений
+            messages=JSON.parse(callresult.result);
+            // вдруг кто-то сохранил мусор вместо LOKTEV_CHAT_MESSAGES?
+            if ( !Array.isArray(messages) )
+                messages=[];
+        }
+        showMessages();
+    }
+}
+
+// получает сообщения с сервера, добавляет новое,
+// показывает и сохраняет на сервере
+function sendMessage() {
+    updatePassword=Math.random();
+    $.ajax( {
+            url : ajaxHandlerScript,
+            type : 'POST', dataType:'json',
+            data : { f : 'LOCKGET', n : stringName,
+                p : updatePassword },
+            cache : false,
+            success : lockGetReady,
+            error : errorHandler
+        }
+    );
+}
+
+// сообщения получены, добавляет, показывает, сохраняет
+function lockGetReady(callresult) {
+    if ( callresult.error!=undefined )
+        alert(callresult.error);
+    else {
+        messages=[];
+        if ( callresult.result!="" ) { // либо строка пустая - сообщений нет
+            // либо в строке - JSON-представление массива сообщений
+            messages=JSON.parse(callresult.result);
+            // вдруг кто-то сохранил мусор вместо LOKTEV_CHAT_MESSAGES?
+            if ( !Array.isArray(messages) )
+                messages=[];
+        }
+
+        var senderName=document.getElementById('IName').value;
+
+//         senderName=valid(senderName);
+//         function valid(text){
+//         while (true){
+//             if ((Boolean(text)===false)||(text.length>20)){
+// //                 text=alert(`Вы ввели некорректное значение!
+// // Введите еще раз:`);
+//             alert(`Вы ввели некорректное имя! Введите еще раз.`);
+//             text=document.getElementById('IName').value
+//             } else {break;}
+//         }
+//         return text;
+//         }
+
+        var message=score;
+
+        messages.push( { name:senderName, mess:message } );
+        function compare(a,b){
+return b.mess-a.mess;
+        }
+        messages.sort(compare)
+
+        if ( messages.length>10 )
+            messages=messages.slice(0,10);
+        showMessages();
+
+        $.ajax( {
+                url : ajaxHandlerScript,
+                type : 'POST', dataType:'json',
+                data : { f : 'UPDATE', n : stringName,
+                    v : JSON.stringify(messages), p : updatePassword },
+                cache : false,
+                success : updateReady,
+                error : errorHandler
+            }
+        );
+    }
+}
+
+// сообщения вместе с новым сохранены на сервере
+function updateReady(callresult) {
+    if ( callresult.error!=undefined )
+        alert(callresult.error);
+}
+
+function errorHandler(jqXHR,statusStr,errorStr) {
+    alert(statusStr+' '+errorStr);
+}
+
+refreshMessages();
+
+
+
+
+
+//     window.addEventListener('focus', befUnload)
+//     window.addEventListener('blur',befUnload)
+//     // window.addEventListener("hashchange", befUnload, false);
+//      window.addEventListener("pagehide", befUnload)
+//      document.addEventListener("pagehide", befUnload)
+// window.onbeforeunload=befUnload;
+//     window.onunload=befUnload;
+//     document.addEventListener("beforeunload", befUnload)
+//     window.addEventListener("beforeunload", befUnload)
+
+//     // window.onhashchange=befUnload;
+//     console.log(play)
+
+//     var isOnIOS = navigator.userAgent.match(/iPad/i)|| navigator.userAgent.match(/iPhone/i);
+// var eventName = isOnIOS ? "pagehide" : "beforeunload";
+
+// window.addEventListener(eventName, function (event) { 
+//     window.event.cancelBubble = true; // Don't know if this works on iOS but it might!
+//     console.log('bft')
+//     alert('oe')
+//     EO.returnValue='А у вас есть несохранённые изменения!';
+// } );
+
+// function isPlay(){
+//   if(play){
+//     console.log(play+'play')
+//     // EO.returnValue='А у вас есть несохранённые изменения!';
+//    // console.log(EO.returnValue='А у вас есть несохранённые изменения!')
+//   }
+// }
+window.addEventListener('beforeunload',befUnload);
+function befUnload(EO) {
+  EO=EO||window.event;
+
+  // если текст изменён, попросим браузер задать вопрос пользователю
+  //if(SPAStateH.pagename=='Game')	
+  if ( play  ){
+    console.log(play)
+    EO.returnValue='А у вас есть несохранённые изменения!';
+    console.log(EO.returnValue='А у вас есть несохранённые изменения!')
+  }
+  
+};
+
+
+//doubletap
+    (function($){
+      $.event.special.doubletap = {
+        bindType: 'touchend',
+        delegateType: 'touchend',
+
+        handle: function(event) {
+          var handleObj   = event.handleObj,
+              targetData  = jQuery.data(event.target),
+              now         = new Date().getTime(),
+              delta       = targetData.lastTouch ? now - targetData.lastTouch : 0,
+              delay       = delay == null ? 300 : delay;
+
+          if (delta < delay && delta > 30) {
+            targetData.lastTouch = null;
+            event.type = handleObj.origType;
+            ['clientX', 'clientY', 'pageX', 'pageY'].forEach(function(property) {
+              event[property] = event.originalEvent.changedTouches[0][property];
+            })
+
+            handleObj.handler.apply(this, arguments);
+          } else {
+            targetData.lastTouch = now;
+          }
+        }
+      };
+    })(jQuery);
+
+    // function rulesPageFunc(){
+    //   setTimeout( function(){
+    //     $('#rulesPage').on('doubletap',function(EO){
+    //       EO.preventDefault();
+    //       document.getElementById('rulesPage').style.display='none'
+    //   });
+    //   },1);
+    // }
+
+    // function moveInfoPage(){
+    //   setTimeout( function(){
+
+    //     let infoPageJs=document.querySelector('.infoPage');
+    //     // for (let i=0; i<infoPageJs.length; i++){
+    //  infoPageJs.style.transform="translateY(5vh) translateZ(0) ";
+    // //  infoPageJs[i].style.webkitTransform="translateZ(0) translateY(100%)";
+    // // }
+
+    
+    //   },1);
+    // }
+
+
+    // function recordsPageFunc(){
+    //   setTimeout( function(){
+    //       $('#recordsPage').on('doubletap',function(EO){
+    //         EO.preventDefault();
+    //         document.getElementById('recordsPage').style.display='none'
+    //       });
+    //       function moveInfoPage() {
+    //     let infoPageJs=document.querySelector('.infoPage');
+    //     // for (let i=0; i<infoPageJs.length; i++){
+    //  infoPageJs.style.transform="translateZ(0) translateY(0)";
+    // //  infoPageJs[i].style.webkitTransform="translateZ(0) translateY(100%)";
+    // // }
+
+    // }
+    //   },1);
+    // }
+
+
+    $('#rulesPage').on('doubletap',function(EO){
+          EO.preventDefault();
+          switchToMainPage()
+      });
+
+    $('#recordsPage').on('doubletap',function(EO){
+            EO.preventDefault();
+            switchToMainPage()
+          });
+
+    $('#endGamePage').on('doubletap',function(EO){
+            EO.preventDefault();
+
+            console.log('class')
+            switchToMainPage()
+            document.querySelector('#endGamePage').style.display='none';
+          });
+
+    //       function closePage(){
+    //   let buttonConfirmArr=document.querySelectorAll('.buttonConfirm');
+    
+    //     document.querySelector('.info').style.display='none';
+      
+
+    // }
+
+
+          // $('#colorred').on('doubletap',function(EO){
+          //   EO.preventDefault();
+          //   document.getElementById('colorred').style.color='#55aa44'
+          // });
+
+    // function checkMediaQuery() {
+    //   if (window.innerWidth < 780) {
+    //   console.log('Media Query Matched!')
+    //   //field.style.width='100vw';
+    //   widthField='100%';
+    //   field.style.width=widthField;
+    //   svgGame.setAttribute('width', widthField);
+    //   console.log(widthField)
+    // console.log('clientWidth '+clientWidth)
+    //  // ball.setAttribute('r', clientWidth*0.03);  
+    //  // ball.r=clientWidth*0.03;  
+    //   //let widthFieldMob=document.documentElement.clientWidth;
+    //  // console.log(widthFieldMob)
+    //  console.log(ballIdJs)
+    //  console.log('widthField*0.03 '+widthField*0.03)
+    //  ballIdJs.setAttribute('r', clientWidth*0.03);  
+    //   }
+    // }
+    // window.addEventListener('resize', checkMediaQuery); 
+
+
+      //  N.10 Выбор случайных цветов радуги
+    //     function randomDiap(n,m) {
+    //         return Math.floor(Math.random()*(m-n+1))+n;
+    // }
+
+    // function mood(colorsCount) {
+    //     var colors=[ '', 'красный', 'оранжевый', 'жёлтый', 'зелёный', 'голубой', 'синий', 'фиолетовый' ];
+
+    //     console.log( 'цветов: ' + colorsCount );
+    //     for ( var i=1; i<=colorsCount; i++ ) {
+    //         var n=randomDiap(1,7);
+    //         var colorName=colors[n];
+    //         console.log( colorName );
+    //     }
+    // }
+
+    // mood(3);
+
+
+
+
+// const mediaQuery = window.matchMedia('(max-width: 780px)')
+// function handleTabletChange(e) {
+//   if (e.matches) {
+//     console.log('Media Query Matched!')
+//         field.style.width='100vw';
+//     let widthFieldMob=field.style.width;
+//     console.log(widthFieldMob)
+//     ball.setAttribute('r', document.documentElement.clientWidth*0.035);
+//   }
+// }
+// mediaQuery.addListener(handleTabletChange)
+// handleTabletChange(mediaQuery)
+
+  </script>
+  
+</body>
+</html>
+
+<!-- // const windowInnerHeight = document.documentElement.clientHeight
+// let container=document.querySelector('.container');
+// container.style.height=windowInnerHeight+'px';
+// console.log(windowInnerHeight) -->
+
+

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>drinks_ajax_storage</title>
+</head>
+<body>
+    <input type="button" value='ввод информации о напитке' onclick='addDrink()'>
+    <input type='button' value='получение информации о напитке' onclick='getDrinkInfo()'>
+    <input type='button' value='удаление информации о напитке' onclick='deleteDrink()'>
+    <input type='button' value='перечень всех напитков' onclick='getDrinkName()'>
+    <script src="http://fe.it-academy.by/JQ/jquery.js"></script>
+    <script>
+        'use strict'
+        //Будем хранить в localStorage:  КЛЮЧ (drinks ) – название темы;  ЗНАЧЕНИЕ ({"марго":{"alco":true,"recipe":"водка"},"сок":{"alco":false,"recipe":"яблоко"}}) - вся информация в виде объекта объектов. 
+        var ajaxHandlerScript="https://fe.it-academy.by/AjaxStringStorage2.php";
+        var messages; // элемент массива - {name:'Иванов',mess:'Привет'};
+        var updatePassword;
+        var stringName='yakovleva_drinks_ajax_storage';
+
+
+
+        // получает сообщения с сервера, добавляет новое,
+        // показывает и сохраняет на сервере
+        function sendMessage() {
+            updatePassword=Math.random();
+            $.ajax( {
+                    url : ajaxHandlerScript,
+                    type : 'POST', dataType:'json',
+                    data : { f : 'LOCKGET', n : stringName,
+                        p : updatePassword },
+                    cache : false,
+                    success : lockGetReady,
+                    error : errorHandler
+                }
+            );
+        }
+
+
+        class LocStorageClass  {
+            constructor (nameLoc){
+                this.nameLoc=nameLoc;
+                this.obj={};
+                        // получает сообщения с сервера и потом показывает
+                        function refreshMessages() {
+                            $.ajax( {
+                                    url : ajaxHandlerScript,
+                                    type : 'POST', dataType:'json',
+                                    data : { f : 'READ', n : stringName },
+                                    cache : false,
+                                    success : readReady,
+                                    error : errorHandler
+                                }
+                            );
+                        }
+
+                        function readReady(callresult) { // сообщения получены - показывает
+                            if ( callresult.error!=undefined )
+                                alert(callresult.error);
+                            else {
+                                messages={};
+                                if ( callresult.result!="" ) { // либо строка пустая - сообщений нет
+                                    // либо в строке - JSON-представление массива сообщений
+                                    messages=JSON.parse(callresult.result);
+                                    // вдруг кто-то сохранил мусор вместо LOKTEV_CHAT_MESSAGES?
+                                    // if ( !Array.isArray(messages) )
+                                    //     messages={};
+                                }
+                            }
+                        }
+                if(messages){
+                    this.obj=messages;
+                } 
+            }
+            addValue(key, value){
+                this.obj[key]=value;
+
+                localStorage.setItem(this.nameLoc, JSON.stringify(this.obj))
+                return this.obj;
+            }
+
+            getValue(key){
+                if (key in this.obj){
+                    return this.obj[key];
+                } else{
+                    return false;
+                }
+            }
+
+            deleteValue(key){
+                if (key in this.obj){
+                    delete this.obj[key]
+                    localStorage.setItem(this.nameLoc, JSON.stringify(this.obj))
+                    return (this.obj);                 
+                } else{
+                    return false;
+                }
+            }
+
+            getKeys(){
+                // for(let k in this.obj);
+                //Object.getOwnPropertyNames(this.obj);
+                return (Object.keys(this.obj));
+            }
+
+
+            
+        }
+
+        let drinkStorage=new LocStorageClass('drinks');
+
+        //Чтобы понять к какой теме подтягивать нужный localStorage, передаем ключ в класс
+
+        let nam;
+        let alco;
+        let recipe;
+        function addDrink(){
+            nam =prompt('Введите название напитка:'); 
+            alco=confirm('Если напиток алкогольный, нажмите \”ОК\”, если безалкогольный, нажмите \”Отмена\”');
+            recipe=prompt('Введите рецепт приготовления:');
+            drinkStorage.addValue(nam, {alco: alco, recipe: recipe});
+        }
+
+        function getDrinkInfo(){
+            nam=prompt('Введите название напитка:');
+            let info=drinkStorage.getValue(nam);
+            if (info){
+            alert(
+            `напиток ${nam}
+алкогольный: ${(info.alco)?'да':'нет'}
+рецепт приготовления: ${info.recipe}`)
+            } else{
+                alert ('Указаного напитка нету в списке рецептов!');
+            }         
+        }
+
+        function deleteDrink(){
+            nam =prompt('Введите название напитка:');
+            if (drinkStorage.deleteValue(nam)){
+                alert('Напиток успешно удален.');
+            } else {
+                alert ('Указаного напитка нету в списке рецептов!');
+            }
+        }
+        
+        function getDrinkName(){
+            alert(drinkStorage.getKeys().map(v=>'  '+v));
+        }
+
+        refreshMessages();
+    </script>
+    
+</body>
+</html>

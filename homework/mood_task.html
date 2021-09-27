@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mood</title>
+</head>
+<body>
+    
+<script>
+
+    "use strict";
+    function randomDiap(n,m) {
+            return Math.floor(Math.random()*(m-n+1))+n;
+    }
+    function mood(count) {
+        const colors=[ '', 'красный', 'оранжевый', 'жёлтый', 'зелёный', 'голубой', 'синий', 'фиолетовый' ];
+        console.log( 'цветов: ' + count ); //цветов: 3   просто запись 
+        let obj={};
+            for ( let i=1; Object.keys(obj).length<count; i++ ) { //перебираем последовательно сколько цветов нужно
+            let n=randomDiap(1,7); // рандомно при помощи функции перебераем индексы номера цветов в массиве
+            if (colors[n] in obj)
+                continue;
+            obj[colors[n]]=true;
+
+            console.log(colors[n]);
+
+            //let colorName=colors[n]; //цвет = по рандомному индексу в массиве
+        }
+        // if (Object.keys(obj).length<count){
+        //         console.log('g');
+        //     }
+        console.log(Object.keys(obj).length)
+        }
+        
+    mood(3);
+
+
+</script>
+</body>
+</html>

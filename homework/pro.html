@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game</title>
+  <style>
+    body {margin: 0; padding: 0;}
+    h1, h2, h3, h4, h5, h6 {margin-top: 0;}
+    ul, ol {margin: 0;}
+    p {margin: 0;}
+
+    .container{
+      width: 100vw;
+      height: 100vh;
+      box-sizing: border-box;
+     background-color: #08101B;
+     display: flex;
+     flex-direction: row;
+     justify-content: space-around;
+     /* #081D32;  светлее*/
+    }
+    .game{
+      height: 100vh;
+      background:  url('11.jpeg') no-repeat center;
+      position: relative;
+      /* background-size: 100%; */
+      
+
+ 
+    }
+    .menu{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+
+    @media all and (max-width: 780px){
+      .container{
+        flex-direction: column;
+      }
+      /* .game{
+        width: 100vw;
+      } */
+      .menu{
+        flex-direction: row;
+        justify-content: space-around;
+      }
+
+      #ballId{
+        position: absolute;
+      }
+
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="menu">
+      <input type=button value='Новая игра'>
+      <input type=button value='Правила'>
+      <input type=button value='Таблица рекордов'>
+    </div>
+    <div class="game">
+      <svg version="1.0" width="64" height="64" xmlns="http://www.w3.org/2000/svg">
+       <defs>
+        <radialGradient id="Shiny"
+          cx="0.5" cy="0.5" r="0.5" fx="0.25" fy="0.25">
+         <stop offset="0%" stop-color="#ffffff" />
+         <stop offset="60%" stop-color="#8CB0D4" />
+         <stop offset="100%" stop-color="#424242" />
+         <!-- <stop offset="100%" stop-color="#000000" /> -->
+         <!-- <stop offset="50%" stop-color="#aa66cc" />
+         <stop offset="75%" stop-color="#553366" />
+         <stop offset="100%" stop-color="#000000" /> -->
+        </radialGradient>
+       </defs>
+       <circle id='ballId' fill="url(#Shiny)" />
+      </svg>
+    </div>
+
+  </div>
+  <script>
+    'use strict'
+    var RAF=
+        window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function(callback)
+            { window.setTimeout(callback, 1000 / 60); }
+
+    //field
+    let field=document.querySelector('.game');
+    let widthField=700; // все построения от ширины
+    field.style.width=widthField+'px';
+
+    //ball
+    let ballIdJs=document.getElementById('ballId')
+    let rBall=widthField*0.03;
+function Ball(id){
+  let self=this;
+  id.setAttribute('r',rBall); //ширина мяча
+  id.setAttribute('cx',rBall);
+  id.setAttribute('cy',rBall);
+  id.setAttribute('cy',rBall);
+  self.posX=widthField/2,
+  self.posY=heightField/2,
+  self.width=widthBall,
+  self.height=heightBall,
+  self.update=function(){
+                ball.style.transform="translateX("+this.posX+"px) translateY("+this.posY+"px) translateZ(0)";
+
+        }
+}
+let ball=new Ball(ballIdJs)
+
+
+
+
+
+
+
+
+    function checkMediaQuery() {
+  if (window.innerWidth < 780) {
+    console.log('Media Query Matched!')
+    field.style.width='100vw';
+    let widthFieldMob=document.documentElement.clientWidth;
+    console.log(widthFieldMob)
+    ball.setAttribute('r', widthFieldMob*0.03);
+   
+  }
+}
+window.addEventListener('resize', checkMediaQuery);
+
+// const mediaQuery = window.matchMedia('(max-width: 780px)')
+// function handleTabletChange(e) {
+//   if (e.matches) {
+//     console.log('Media Query Matched!')
+//         field.style.width='100vw';
+//     let widthFieldMob=field.style.width;
+//     console.log(widthFieldMob)
+//     ball.setAttribute('r', document.documentElement.clientWidth*0.035);
+//   }
+// }
+// mediaQuery.addListener(handleTabletChange)
+// handleTabletChange(mediaQuery)
+
+  </script>
+  
+</body>
+</html>
+
+
+<!-- // const windowInnerHeight = document.documentElement.clientHeight
+// let container=document.querySelector('.container');
+// container.style.height=windowInnerHeight+'px';
+// console.log(windowInnerHeight) -->

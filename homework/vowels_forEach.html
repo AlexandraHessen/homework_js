@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vowels_forEach</title>
+</head>
+<body>
+    <script>
+        "use strict";
+        let str=prompt("Введите текст:");
+        let strArr=str.toLowerCase().split('');
+        const vowels=['а','у', 'о', 'и', 'э', 'ы', 'я', 'ю', 'е', 'ё'];
+        let count=0;
+        strArr.forEach(isVowel);
+        function isVowel(letter){
+          if (vowels.indexOf(letter)!==-1){
+        count++;}
+        return count;}
+
+        console.log(`Количество русских гласных букв в тексте: ${isVowel()}`);
+//     ?? если писать без отдельно вынесенной строки strArr.forEach(isVowel);, 
+//    а в console.log(`Количество: ${strArr.forEach(isVowel)}`), то выводится в консоле undefined, 
+//  хотя функция возвращает нужное количество
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B.50b Подсчёт частоты слов в фразе</title>
+</head>
+<body>
+    <script>
+
+        "use strict";
+    
+        var text='истоки ';
+    
+        var words=text.split(' '); //разбиваем текст на слова, получается массив из слов
+    
+        var wordsCount={}; // создаем пустой объекст, в который мы будем складывать эти слова ключ - слово, значение - сколько раз оно встретилось
+        for ( var i=0; i<words.length; i++ ) {//до послднего элемента в массиве слов
+            var word=words[i];// words наш масив, words[i]=words[0]=истоки т.е. каждое слово
+            if ( !(word in wordsCount) )//проверяем есть ли в нашем объекте wordsCount слово word если его нет, то надо создать его с начала с нулевым значением, если слово есть то 
+                wordsCount[word]=0;
+            wordsCount[word]++;
+        }
+    
+        for ( word in wordsCount )
+            console.log( 'слово ' + word + ' количество ' + wordsCount[word] );
+    
+    </script>
+</body>
+</html>

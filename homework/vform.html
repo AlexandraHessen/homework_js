@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VALID_FORM</title>
+    <style>
+        span{
+            color:red;
+            margin-left: 1em;
+        }
+    </style>
+</head>
+<body>
+    <form name='formHtml' method='post' action="https://fe.it-academy.by/TestForm.php" novalidate>
+        Разработчики: <input type='text' name='devHtml'><span id='devErrorHtml'></span><br>
+        Название сайта: <input type="text" name='nameHtml'><span id='nameErrorHtml'></span><br>
+        URL сайта: <input type="text" name='urlHtml'><span id='urlErrorHtml'></span><br>
+        Дата запуска сайта:	<input type="text" name='dataHtml'><span id='dataErrorHtml'></span><br>
+        Посетителей в сутки: <input type="text" name="visitorHtml"><span id='visitorErrorHtml'></span><br>	
+        E-mail для связи: <input type="email" name='emailHtml'><span id='emailErrorHtml'></span><br>	
+        Рубрика каталога: <select name='rubricHtmlSelect'>
+            <option value='1'>здоровье</option>
+            <option value='2'>домашний уют</option>
+            <option value='3'>бытовая техника</option>
+        </select><span id='rubricSelectErrorHtml'></span><br>
+        Размещение:<input type='radio' name='accomHtmlRadio' id='accomIdRadio1' value=1>бесплатное
+        <input type='radio' name='accomHtmlRadio' id='accomIdRadio2' value=2>платное
+        <input type='radio' name='accomHtmlRadio' id='accomIdRadio3' value=3>VIP<span id='accomHtmlRadioError'></span><br>
+        Разрешить отзывы: <input type='checkbox' name='commentHtmlCheck'><span id='commentCheckErrorHtml'></span><br>	
+        Описание сайта:<textarea name='descrHtml'></textarea><span id='descrErrorHtml'></span><br>
+        <input type='submit' value='Опубликовать'>
+    </form>
+    <script>
+        'use strict'
+        let formJs=document.forms.formHtml;
+        formJs.addEventListener('submit', (EO) => valid(dev, devError, EO));
+        formJs.addEventListener('submit', (EO) => valid(name, nameError, EO));
+        formJs.addEventListener('submit', (EO) => valid(url, urlError, EO));
+        formJs.addEventListener('submit', (EO) => valid(data, dataError, EO));
+        formJs.addEventListener('submit', (EO) => valid(visitor, visitorError, EO));
+        formJs.addEventListener('submit', validVisitor)
+        formJs.addEventListener('submit', (EO) => valid(email, emailError, EO));
+        formJs.addEventListener('submit', validEmail)
+        formJs.addEventListener('submit', validRubricSelect);
+        formJs.addEventListener('submit', validCommentCheck);
+        formJs.addEventListener('submit', validAccomRadio);
+        formJs.addEventListener('submit', (EO) => valid(descr, descrError, EO));
+
+        let dev=formJs.elements.devHtml;
+        let devError=document.getElementById('devErrorHtml');
+        dev.addEventListener('blur', (EO) => valid(dev, devError, EO))
+        //еще можно через Function.prototype.bind()
+
+        let name=formJs.elements.nameHtml;
+        let nameError=document.getElementById('nameErrorHtml');
+        name.addEventListener('blur', (EO) => valid(name, nameError, EO))
+
+        let url=formJs.elements.urlHtml;
+        let urlError=document.getElementById('urlErrorHtml');
+        url.addEventListener('blur', (EO) => valid(url, urlError, EO))
+
+        let data=formJs.elements.dataHtml;
+        let dataError=document.getElementById('dataErrorHtml');
+        data.addEventListener('blur', (EO) => valid(data, dataError, EO))
+
+        let visitor=formJs.elements.visitorHtml;
+        let visitorError=document.getElementById('visitorErrorHtml');
+        visitor.addEventListener('blur', (EO) => valid(visitor, visitorError, EO))
+        visitor.addEventListener('blur', validVisitor)
+
+        function validVisitor(EO){
+            EO=EO||window.event;
+            try{
+                if(isNaN(parseInt(visitor.value.trim()))){
+                    visitorError.innerHTML='Введите корректное число!';
+                    EO.preventDefault(); 
+                    return;   
+                }else{
+                    visitorError.innerHTML='';
+                }
+            }
+            catch(ex){
+                alert('Извините, что-то пошло не так, неожиданный сбой!');
+                 EO.preventDefault();
+            }
+        }
+
+        let email=formJs.elements.emailHtml;
+        let emailError=document.getElementById('emailErrorHtml');
+        email.addEventListener('blur', (EO) => valid(email, emailError, EO))
+        email.addEventListener('blur', validEmail)
+
+        function validEmail(EO){
+            EO=EO||window.event;
+            try{
+                if(email.value.indexOf('@')==-1){
+                    emailError.innerHTML='Введите корректный email! Он должен содержать @';
+                    EO.preventDefault(); 
+                    return;   
+                }else{
+                    emailError.innerHTML='';
+                }
+            }
+            catch(ex){
+                alert('Извините, что-то пошло не так, неожиданный сбой!');
+                 EO.preventDefault();
+            }
+        }
+
+        let rubricSelect=formJs.elements.rubricHtmlSelect;
+        let rubricSelectError=document.getElementById('rubricSelectErrorHtml');
+        rubricSelect.addEventListener('change', validRubricSelect)
+        console.log(rubricSelect.value)
+        console.log(rubricSelect.input)
+        console.log(rubricSelect.selectedIndex)
+        console.log(rubricSelect)
+     
+  document.addEventListener("DOMContentLoaded", (_) => {
+    document.querySelector("select").addEventListener("change", (e) => {
+      console.log('new' +e.target.value);
+    });
+  });
+
+        //console.log(var value = document.getElementById("selectId").value;)
+
+       // console.log(document.getElementById('gt').selected)
+       rubricSelect.addEventListener('click', clickSelect)
+
+       function clickSelect (EO){
+           EO=EO||window.event;
+           document.getElementById('gt')
+           console.log(EO)
+            console.log('EO.target'+EO.target )
+            console.log(EO.target )
+            console.log(EO.target.id)
+            console.log(EO.target.id)
+            if (EO.target === rubricSelect) {
+                console.log('tue')
+            } 
+        }
+        var divElem=document.getElementById('gt');
+    divElem.addEventListener('mouseover',mouseOver,false);
+   
+
+    function mouseOver(EO) {
+        EO=EO||window.event;
+        console.log('mouseover - мышь теперь над самим элементом '+EO.target.id);
+    }
+
+        document.getElementById('gt').addEventListener('click', function(EO){
+           EO=EO||window.event;
+           console.log(EO)
+            console.log(EO.target )
+            if (EO.target === rubricSelect) {
+                console.log('tue')
+            } 
+        })
+
+//         var wrapper = document.querySelector('.wrapper');
+// var clickMe = document.getElementById('clickMe');
+
+// wrapper.addEventListener('click', function(e) {
+// 	if (e.target === wrapper) {
+//   	console.log("You've clicked the wrapper lement");
+//   } else if (e.target === clickMe) {
+//   	console.log("You've clicked the clickMeElement");
+//   } else if (e.target.parentNode === clickMe) {
+//   	console.log("You've clicked the child of clickMe")
+//   }
+// });
+        function validRubricSelect(EO){
+            EO=EO||window.event;
+            try{
+                if(rubricSelect.value==2){
+                    rubricSelectError.innerHTML='На данный момент рубрика “Домашний уют” не доступна. Выберите другую.';
+                    EO.preventDefault(); 
+                    return;   
+                }else{
+                    rubricSelectError.innerHTML='';
+                }
+            }
+            catch(ex){
+                alert('Извините, что-то пошло не так, неожиданный сбой!');
+                 EO.preventDefault();
+            }
+        }
+
+        let accomRadio1=document.getElementById('accomIdRadio1');
+        let accomRadio2=document.getElementById('accomIdRadio2');
+        let accomRadio3=document.getElementById('accomIdRadio3');
+        let accomRadioError=document.getElementById('accomHtmlRadioError');
+        accomRadio1.addEventListener('change', validAccomRadio)
+        accomRadio2.addEventListener('change', validAccomRadio)
+        accomRadio3.addEventListener('change', validAccomRadio)
+        
+        function validAccomRadio(EO){
+            EO=EO||window.event;
+            try{
+              if((accomRadio1.checked==''&&accomRadio2.checked==''&&accomRadio3.checked=='')){
+                    accomRadioError.innerHTML='Вы не выбрали размещение!';
+                    EO.preventDefault(); 
+                    return;                
+                }else{
+                    accomRadioError.innerHTML='';
+                }
+             }
+             catch (ex){
+                 alert('Извините, что-то пошло не так, неожиданный сбой!');
+                 EO.preventDefault();
+             }
+        }
+
+        let commentCheck=formJs.elements.commentHtmlCheck;
+        let commentCheckError=document.getElementById('commentCheckErrorHtml');
+        commentCheck.addEventListener('change', validCommentCheck)
+        function validCommentCheck(EO){
+            EO=EO||window.event;
+            try{
+                if(!commentCheck.checked){
+                    commentCheckError.innerHTML='Правилами нашего сайта обязательно разрешение отзывов.';
+                    EO.preventDefault(); 
+                    return;   
+                }else{
+                    commentCheckError.innerHTML='';
+                }
+            }
+            catch(ex){
+                alert('Извините, что-то пошло не так, неожиданный сбой!');
+                EO.preventDefault();
+            }
+        }
+
+        let descr=formJs.elements.descrHtml;
+        let descrError=document.getElementById('descrErrorHtml');
+        descr.addEventListener('blur', (EO) => valid(descr, descrError, EO))
+        
+
+        function valid(idInput, idError, EO){
+            EO=EO||window.event;
+            try{
+                if(idInput.value==''){
+                    idError.innerHTML='Oбязательное поле для заполнения!';
+                    EO.preventDefault(); 
+                    return;                
+                }else{
+                    idError.innerHTML='';
+                }
+             }
+             catch (ex){
+                 alert('Извините, что-то пошло не так, неожиданный сбой!');
+                 EO.preventDefault();
+             }
+        }
+
+        formJs.addEventListener('submit',validAll);
+        function validAll(EO){
+            EO=EO||window.event;
+            try{
+                let spanAll=document.querySelectorAll('span');
+            for (let i=0; i<spanAll.length; i++){
+                if (spanAll[i].textContent!=''){
+                    if(accomHtmlRadioError!=''){
+                        accomRadio1.scrollIntoView();
+                        EO.preventDefault();
+                        return;
+                    }
+                    spanAll[i].previousSibling.focus();
+                    EO.preventDefault();
+                    return;
+                    }
+                }
+             }
+             catch (ex){
+                 alert('Извините, что-то пошло не так, неожиданный сбой!');
+                 EO.preventDefault();
+             }
+        }
+
+//         Проверка:
+// 1.	Все поля должны быть заполнены
+// 2.	В поле Посетителей в сутки – может быть только число
+// 3.	В поле  E-mail для связи – должен содержать @
+
+    </script>
+    
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VALID_FORM</title>
+    <style>
+        span{
+            color:red;
+            margin-left: 1em;
+        }
+    </style>
+</head>
+<body>
+    <form name='formHtml' method='post' action="https://fe.it-academy.by/TestForm.php" novalidate>
+        Разработчики: <input type='text' name='devHtml'><span id='devErrorHtml'></span><br>
+        Название сайта: <input type="text" name='nameHtml'><span id='nameErrorHtml'></span><br>
+        URL сайта: <input type="text" name='urlHtml'><span id='urlErrorHtml'></span><br>
+        Дата запуска сайта:	<input type="text" name='dataHtml'><span id='dataErrorHtml'></span><br>
+        Посетителей в сутки: <input type="text" name="visitorHtml"><span id='visitorErrorHtml'></span><br>	
+        E-mail для связи: <input type="email" name='emailHtml'><span id='emailErrorHtml'></span><br>	
+        Рубрика каталога: <select name='rubricHtmlSelect'>
+            <option value='1'>здоровье</option>
+            <option value='2'>домашний уют</option>
+            <option value='3'>бытовая техника</option>
+        </select><span id='rubricSelectErrorHtml'></span><br>
+        Размещение:<input type='radio' name='accomHtmlRadio' id='accomIdRadio1' value=1>бесплатное
+        <input type='radio' name='accomHtmlRadio' id='accomIdRadio2' value=2>платное
+        <input type='radio' name='accomHtmlRadio' id='accomIdRadio3' value=3>VIP<span id='accomHtmlRadioError'></span><br>
+        Разрешить отзывы: <input type='checkbox' name='commentHtmlCheck'><span id='commentCheckErrorHtml'></span><br>	
+        Описание сайта:<textarea name='descrHtml'></textarea><span id='descrErrorHtml'></span><br>
+        <input type='submit' value='Опубликовать'>
+    </form>
+    <script>
+        'use strict'
+        let formJs=document.forms.formHtml;
+        formJs.addEventListener('submit', (EO) => valid(dev, devError, EO));
+        formJs.addEventListener('submit', (EO) => valid(name, nameError, EO));
+        formJs.addEventListener('submit', (EO) => valid(url, urlError, EO));
+        formJs.addEventListener('submit', (EO) => valid(data, dataError, EO));
+        formJs.addEventListener('submit', (EO) => valid(visitor, visitorError, EO));
+        formJs.addEventListener('submit', validVisitor)
+        formJs.addEventListener('submit', (EO) => valid(email, emailError, EO));
+        formJs.addEventListener('submit', validEmail)
+        formJs.addEventListener('submit', validRubricSelectFirst);
+        formJs.addEventListener('submit', validRubricSelectAll);
+        formJs.addEventListener('submit', validCommentCheck);
+        formJs.addEventListener('submit', validAccomRadio1);
+        formJs.addEventListener('submit', validAccomRadio);
+        formJs.addEventListener('submit', (EO) => valid(descr, descrError, EO));
+
+        let dev=formJs.elements.devHtml;
+        let devError=document.getElementById('devErrorHtml');
+        dev.addEventListener('blur', (EO) => valid(dev, devError, EO))
+        //еще можно через Function.prototype.bind()
+
+        let name=formJs.elements.nameHtml;
+        let nameError=document.getElementById('nameErrorHtml');
+        name.addEventListener('blur', (EO) => valid(name, nameError, EO))
+
+        let url=formJs.elements.urlHtml;
+        let urlError=document.getElementById('urlErrorHtml');
+        url.addEventListener('blur', (EO) => valid(url, urlError, EO))
+
+        let data=formJs.elements.dataHtml;
+        let dataError=document.getElementById('dataErrorHtml');
+        data.addEventListener('blur', (EO) => valid(data, dataError, EO))
+
+        let visitor=formJs.elements.visitorHtml;
+        let visitorError=document.getElementById('visitorErrorHtml');
+        visitor.addEventListener('blur', (EO) => valid(visitor, visitorError, EO))
+        visitor.addEventListener('blur', validVisitor)
+
+        function validVisitor(EO){
+            EO=EO||window.event;
+            try{
+                if(isNaN(parseInt(visitor.value.trim()))){
+                    visitorError.innerHTML='Введите корректное число!';
+                    EO.preventDefault(); 
+                    return;   
+                }else{
+                    visitorError.innerHTML='';
+                }
+            }
+            catch(ex){
+                alert('Извините, что-то пошло не так, неожиданный сбой!');
+                 EO.preventDefault();
+            }
+        }
+
+        let email=formJs.elements.emailHtml;
+        let emailError=document.getElementById('emailErrorHtml');
+        email.addEventListener('blur', (EO) => valid(email, emailError, EO))
+        email.addEventListener('blur', validEmail)
+
+        function validEmail(EO){
+            EO=EO||window.event;
+            try{
+                if(email.value.indexOf('@')==-1){
+                    emailError.innerHTML='Введите корректный email! Он должен содержать @';
+                    EO.preventDefault(); 
+                    return;   
+                }else{
+                    emailError.innerHTML='';
+                }
+            }
+            catch(ex){
+                alert('Извините, что-то пошло не так, неожиданный сбой!');
+                 EO.preventDefault();
+            }
+        }
+
+        let rubricSelect=formJs.elements.rubricHtmlSelect;
+        let rubricSelectError=document.getElementById('rubricSelectErrorHtml');
+        rubricSelect.addEventListener('click', validRubricSelectFirst)
+
+        function validRubricSelectFirst(EO){
+            EO=EO||window.event;
+            try{
+                if(rubricSelect.value==1){
+                    rubricSelectError.innerHTML='На данный момент рубрика “Здоровье” не доступна. Выберите другую.';
+                    EO.preventDefault(); 
+                    return;   
+                }else{
+                    rubricSelectError.innerHTML='';
+                }
+            }
+            catch(ex){
+                alert('Извините, что-то пошло не так, неожиданный сбой!');
+                 EO.preventDefault();
+            }
+        }
+
+        function validRubricSelectAll(EO){
+            EO=EO||window.event;
+            try{
+                if(rubricSelect.value==1){
+                    rubricSelectError.innerHTML='Вы не сделали выбор.';
+                    EO.preventDefault(); 
+                    return;   
+                }else{
+                    rubricSelectError.innerHTML='';
+                }
+            }
+            catch(ex){
+                alert('Извините, что-то пошло не так, неожиданный сбой!');
+                 EO.preventDefault();
+            }
+        }
+
+        let accomRadio1=document.getElementById('accomIdRadio1');
+        let accomRadio2=document.getElementById('accomIdRadio2');
+        let accomRadio3=document.getElementById('accomIdRadio3');
+        let accomRadioError=document.getElementById('accomHtmlRadioError');
+        accomRadio1.addEventListener('change', validAccomRadio)
+        accomRadio2.addEventListener('change', validAccomRadio)
+        accomRadio3.addEventListener('change', validAccomRadio)
+        accomRadio1.addEventListener('change', validAccomRadio1)
+
+        function validAccomRadio(EO){
+            EO=EO||window.event;
+            try{
+              if((accomRadio1.checked==''&&accomRadio2.checked==''&&accomRadio3.checked=='')){
+                    accomRadioError.innerHTML='Вы не выбрали размещение!';
+                    EO.preventDefault(); 
+                    return;                
+                }else{
+                    accomRadioError.innerHTML='';
+                }
+             }
+             catch (ex){
+                 alert('Извините, что-то пошло не так, неожиданный сбой!');
+                 EO.preventDefault();
+             }
+        }
+
+        function validAccomRadio1(EO){
+            EO=EO||window.event;
+            try{
+              if(accomRadio1.checked){
+                    accomRadioError.innerHTML='На данный момент бесплатное размещение не доступно.';
+                    EO.preventDefault(); 
+                    return;                
+                }else{
+                    accomRadioError.innerHTML='';
+                }
+             }
+             catch (ex){
+                 alert('Извините, что-то пошло не так, неожиданный сбой!');
+                 EO.preventDefault();
+             }
+        }
+
+        let commentCheck=formJs.elements.commentHtmlCheck;
+        let commentCheckError=document.getElementById('commentCheckErrorHtml');
+        commentCheck.addEventListener('change', validCommentCheck)
+        function validCommentCheck(EO){
+            EO=EO||window.event;
+            try{
+                if(!commentCheck.checked){
+                    commentCheckError.innerHTML='Правилами нашего сайта обязательно разрешение отзывов.';
+                    EO.preventDefault(); 
+                    return;   
+                }else{
+                    commentCheckError.innerHTML='';
+                }
+            }
+            catch(ex){
+                alert('Извините, что-то пошло не так, неожиданный сбой!');
+                EO.preventDefault();
+            }
+        }
+
+        let descr=formJs.elements.descrHtml;
+        let descrError=document.getElementById('descrErrorHtml');
+        descr.addEventListener('blur', (EO) => valid(descr, descrError, EO))
+        
+
+        function valid(idInput, idError, EO){
+            EO=EO||window.event;
+            try{
+                if(idInput.value==''){
+                    idError.innerHTML='Oбязательное поле для заполнения!';
+                    EO.preventDefault(); 
+                    return;                
+                }else{
+                    idError.innerHTML='';
+                }
+             }
+             catch (ex){
+                 alert('Извините, что-то пошло не так, неожиданный сбой!');
+                 EO.preventDefault();
+             }
+        }
+
+        formJs.addEventListener('submit',validAll);
+        function validAll(EO){
+            EO=EO||window.event;
+            try{
+                let spanAll=document.querySelectorAll('span');
+            for (let i=0; i<spanAll.length; i++){
+                if (spanAll[i].textContent!=''){
+                    if(accomHtmlRadioError!=''){
+                        accomRadio1.scrollIntoView();
+                        EO.preventDefault();
+                        return;
+                    }
+                    spanAll[i].previousSibling.focus();
+                    EO.preventDefault();
+                    return;
+                    }
+                }
+             }
+             catch (ex){
+                 alert('Извините, что-то пошло не так, неожиданный сбой!');
+                 EO.preventDefault();
+             }
+        }
+
+//         Проверка:
+// 1.	Все поля должны быть заполнены
+// 2.	В поле Посетителей в сутки – может быть только число
+// 3.	В поле  E-mail для связи – должен содержать @
+// 4.   В поле   Рубрика каталога: недоступна “Здоровье”
+// 5.   В поле Размещение: не доступно бесплатное
+// Т.к. для радиокнопки недоступен фокус, установлен скролл к первой
+
+
+
+
+    </script>
+    
+</body>
+</html>

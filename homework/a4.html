@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A4</title>
+</head>
+<body>
+    <script>
+        let str=prompt("Введите фразу:");
+         function isPalindromeRec(phrase){
+            phrase = phrase.toLowerCase().split(/[.,\/#!$%\^&\*;:{}=\-_`~()\s]/g).join('').split('ё').join('e').split('ъ').join('ь');
+             if (phrase.length<=1){
+                 return true;
+             }
+             return (phrase.charAt(0)==phrase.charAt(phrase.length-1) && isPalindromeRec(phrase.slice(1, phrase.length-1)));
+            }
+             
+         if (isPalindromeRec(str)){
+            console.log('Это палиндром.');
+        } else{
+            console.log('Это не палиндром.');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game</title>
+  <style>
+    /* overflow: hidden */
+    body {margin: 0; padding: 0;}
+    h1, h2, h3, h4, h5, h6 {margin-top: 0;}
+    ul, ol {margin: 0;}
+    p {margin: 0;}
+
+    .container{
+      /* width: 100vw=350; */
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+     background-color: #08101B;
+     display: flex;
+     flex-direction: row;
+     justify-content: space-around;
+     /* #081D32;  светлее*/
+    }
+    .game{
+      height: 100vh;
+      background:  url('11.jpeg') no-repeat center;
+      position: relative;
+      /* background-size: 100%; */
+      
+
+ 
+    }
+    .menu{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+/* [value*='Новая игра'] */
+    input{
+      /* background-color: #7FFF00; */
+      /* background: rgb(2,0,36); */
+      background: linear-gradient(180deg, white 0%, #9bd6ee 40%, #24429a 100%);
+      border-radius: 40%;
+      height: 40px;
+      font: bold 20px "Arial";
+      border: none;
+      margin-bottom: 8px;
+      width: 100%
+    }
+
+    /* #ballId{
+      animation: rotation 100ms infinite linear;
+  transform-origin: 50% 50%;
+  
+    }
+    @keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(359deg);
+    } */
+
+    /* #rocketId */
+    /* #Shiny{
+      animation: MyAnimation2 2s infinite;
+    }
+    @keyframes MyAnimation2{
+    from { background-color: cyan; color: red }
+    50% { background-color: magenta; color: red }
+    to { background-color: cyan; color: blue }
+} */
+
+    @media all and (max-width: 780px){
+      .container{
+        flex-direction: column;
+      }
+      /* .game{
+        width: 100vw;
+      } */
+      .menu{
+        flex-direction: row;
+        justify-content: space-around;
+      }
+
+      #ballId{
+        position: absolute;
+      }
+
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="menu">
+      <input type=button value='Новая игра' onclick='start()'>
+      <input type=button value='Правила'>
+      <input type=button value='Таблица рекордов'>
+      <div id="main" style='height: 40px; background-color: aquamarine;'>
+mdfvmb
+иваиьдьдаыи
+      </div>
+    </div>
+    <div class="game"></div>
+  </div>
+  <!-- <script src='http://fe.it-academy.by/JQ/jquery.js'></script> -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+  <script>
+    'use strict'
+    var RAF=
+      window.requestAnimationFrame ||
+      window.webkitRequestAnimationFrame ||
+      window.mozRequestAnimationFrame ||
+      window.oRequestAnimationFrame ||
+      window.msRequestAnimationFrame ||
+      function(callback)
+      { window.setTimeout(callback, 1000 / 60); }
+
+//audio
+    var clickAudio=new Audio;
+    if ( clickAudio.canPlayType("audio/mpeg")=="probably" ){
+      clickAudio.src="sounds/brick.mp3";
+      // clickAudio.src="http://fe.it-academy.by/Examples/Sounds/button-16.ogg";
+      clickAudio.type="audio/mp3";
+    } else{
+      clickAudio.src="sounds/brick.ogg";
+    }
+
+    let mobile;
+    if ( clickAudio.canPlayType("audio/mpeg")=="maybe" ){
+      mobile=true;
+      clickAudio.src="sounds/brick.mp3";
+      clickAudio.type="audio/mp3";
+    } else{
+      clickAudio.src="sounds/brick.ogg";
+    }
+
+ 
+
+
+        
+
+
+      let clientWidth
+  let clientHeight
+  clientWidth=document.documentElement.clientWidth;
+  clientHeight=document.documentElement.clientHeight;
+
+  // function dr(){
+  //   if(clientWidth<500){
+  //   clientHeight=300
+  //   svgGame.width=370
+  // }
+  // }
+
+
+//     go();
+// window.addEventListener('resize', go);
+
+// function go(){
+//   // document.querySelector('.width').innerText = document.documentElement.clientWidth;
+//   // document.querySelector('.height').innerText = document.documentElement.clientHeight;
+//   clientWidth=document.documentElement.clientWidth;
+//   clientHeight=document.documentElement.clientHeight;
+//   console.log('clientWidth '+document.documentElement.clientWidth) 
+//   console.log('clientHeight '+document.documentElement.clientHeight) 
+//   //rocketGame.posY();
+// }
+
+    // function checkMediaQuery() {
+    //   if (window.innerWidth < 780) {
+    //   console.log('Media Query Matched!')
+    //   field.style.width='100vw';
+    //   let widthFieldMob=document.documentElement.clientWidth;
+    //   console.log(widthFieldMob)
+    //   ball.setAttribute('r', widthFieldMob*0.03);  
+    //   }
+    // }
+    // window.addEventListener('resize', checkMediaQuery);
+
+    //window.addEventListener('resize', checkMediaQuery);
+//     function checkMediaQuery() {
+//   if (window.innerWidth < 780) {
+//     console.log('Media Query Matched!')
+//     field.style.width='100vw';
+//     let widthFieldMob=document.documentElement.clientWidth;
+//     console.log(widthFieldMob)
+//     ball.setAttribute('r', widthFieldMob*0.03);
+
+//   }
+// }
+
+
+//field
+    let field=document.querySelector('.game');
+    let widthField=700; // все построения от ширины
+    let heightField=clientHeight;
+    field.style.width=widthField+'px';
+    console.log('widthField '+widthField) 
+  console.log('heightField '+heightField) 
+        //let svgGame=document.getElementById('svgGameId');
+
+
+
+
+    let svgGame=document.createElementNS("http://www.w3.org/2000/svg",'svg');
+    svgGame.setAttribute('width', widthField);
+    svgGame.setAttribute('height', clientHeight);
+    // svgGame.width=widthField
+    // svgGame.height=clientHeight
+    field.appendChild(svgGame)
+    console.log('svg'+svgGame.width)
+    
+
+//brick 
+    var brickRowCount = 3; //кол-во строк
+    var brickColumnCount = 6; //кол-во столбцов
+    var brickWidth = widthField*0.12; //
+    var brickHeight = 40; //
+    var brickPadding =10;
+   // var brickPadding = (widthField-(brickWidth*(brickColumnCount+2)))/brickColumnCount; // расстояние между
+    var brickOffsetTop = clientHeight*0.12; //? смещение
+    var brickOffsetLeft = 30;
+
+    var bricks = [];
+    for(var r=0; r<brickRowCount; r++) {
+        bricks[r] = [];
+        for(var c=0; c<brickColumnCount; c++) {
+            bricks[r][c] = { x: 0, y: 0, status: 1 };
+        }
+    }
+    let brick;
+    let brickRect=[];
+     //let color=`<defs><linearGradient x1='0%' y1='0%' x2='0%' y2='100%'><stop offset='0%' stop-color=white /><stop offset='80%' stop-color=#7FFF00 /> <stop offset='100%' stop-color=#7FFF00 stop-opacity=0.5 /></linearGradient></defs>`
+        //color=`red`
+
+        
+
+    function drawBricks() {
+        for(var r=0; r<brickRowCount; r++) {
+          
+            for(var c=0; c<brickColumnCount; c++) {
+              if(bricks[r][c].status == 1){
+                var brickX = (c*(brickWidth+brickPadding))+brickOffsetLeft;
+              var brickY = (r*(brickHeight+brickPadding))+brickOffsetTop;
+                bricks[r][c].x = brickX;
+                bricks[r][c].y = brickY;
+                brick=document.createElementNS("http://www.w3.org/2000/svg",'rect');
+                
+                brick.setAttribute('x', brickX);
+                brick.setAttribute('y', brickY);
+                brick.setAttribute('width', brickWidth);
+                brick.setAttribute('height', brickHeight);
+                brick.setAttribute('rx', '15');
+              // createGradient(colorChoice())
+              const colorArr=['#7FFF00', '#FF0000', '#FFFF14', '#9932CC', '#0000FF']
+    function colorChoice(){
+      return colorArr[Math.floor(Math.random() * colorArr.length)]
+    }
+        
+        // function createGradient(color) {
+    var defs = document.createElementNS("http://www.w3.org/2000/svg",'defs');
+    var linearGradient = document.createElementNS("http://www.w3.org/2000/svg",'linearGradient');
+    linearGradient.setAttribute('x1', '0%');
+    linearGradient.setAttribute('x2', '0%');
+    linearGradient.setAttribute('y1', '0%');
+    linearGradient.setAttribute('y2', '80%');
+    defs.appendChild(linearGradient);
+    linearGradient.setAttribute('id', colorChoice());
+
+    var stop1 = document.createElementNS("http://www.w3.org/2000/svg",'stop');
+    stop1.setAttribute("offset", "2%");
+    stop1.setAttribute("stop-color", "#424242");
+
+    var stop2 = document.createElementNS("http://www.w3.org/2000/svg",'stop');
+    stop2.setAttribute("offset", "100%");
+    stop2.setAttribute("stop-color",colorChoice());
+
+    svgGame.appendChild(defs);
+    defs.appendChild(linearGradient);
+    linearGradient.appendChild(stop1);
+    linearGradient.appendChild(stop2);
+      // }
+      //createGradient(colorChoice())
+            brick.setAttribute('fill', `url(#${colorChoice()})`);
+            //console.log(`5${brick.style.fill}5`)
+            //stop2.setAttribute("stop-color",colorChoice());
+            
+            //brick.setAttribute('fill', `<defs><linearGradient x1='0%' y1='0%' x2='0%' y2='100%'><stop offset='0%' stop-color=white /><stop offset='80%' stop-color=#7FFF00 /> <stop offset='100%' stop-color=#7FFF00 stop-opacity=0.5 /></linearGradient></defs>`);
+           // brick.style.fill =`${color}`
+           // brick.setAttribute('fill', `<lineargradient x1='0%' y1='0%' x2='0%' y2='100%'><stop offset='0%' stop-color=white /><stop offset='80%' stop-color=#7FFF00 /> <stop offset='100%' stop-color=#7FFF00 stop-opacity=0.5 /></lineargradient>`);
+
+            // console.log(brick)
+            // console.log(bricks[c][r])
+            //svgGame.appendChild(brick);
+           // stop2.setAttribute("stop-color",colorChoice());
+            brickRect.push(brick)
+            svgGame.appendChild(brick);
+            //console.log(brick.style.fill.defs.linearGradient.stop2)
+            //console.log(`5${brick.style.fill}5`)
+          }
+          }
+    }
+    }
+   drawBricks();
+    //brick.style.fill.innerHTML=color
+
+
+    // delete brick 
+    function collisionDetection() {
+      for(var r=0; r<brickRowCount; r++) {
+        for(var c=0; c<brickColumnCount; c++) {
+          var b = bricks[r][c]; // конкретный кирпич
+              
+                // calculations
+                //ball.posX-rBall > b.x && ball.posX+rBall < b.x+brickWidth && ball.posY+rBall > b.y && ball.posY < b.y+brickHeight
+               if(b.status == 1){
+                                   // if(ball.posX+rBall > b.x && ball.posX-rBall < b.x+brickWidth && ball.posY-rBall> b.y && ball.posY-rBall< b.y+brickHeight) 
+               //if(ball.posX+rBall > b.x && ball.posX-rBall < b.x+brickWidth && ball.posY-rBall  > b.y && ball.posY-rBall < b.y+brickHeight) {
+                 if(ball.posX+rBall > b.x && ball.posX-rBall < b.x+brickWidth && ball.posY+rBall > b.y && ball.posY-rBall<b.y+brickHeight){
+                ball.speedY=-ball.speedY;
+                  b.status = 0;
+                  //brick.setAttribute('fill', 'yellow');
+                  //console.log(document.querySelector("rect[x='30'][y='30']"))
+                                    //brick.setAttribute("style","display:none;");
+                  document.querySelector(`rect[x='${b.x}'][y='${b.y}']`).setAttribute("style","display:none;");
+                  clickSound();
+                  score++;
+                  scoreSVG.innerHTML=`Score: ${score}`
+                  if(score==brickColumnCount*brickRowCount){
+                    ball.speedX=0;
+                    ball.speedY=0;
+                  }
+              
+                  }
+
+               }
+
+  
+        }
+             
+      }
+            
+                  
+
+    }
+       
+                
+               
+           
+    
+  
+
+//rocketall
+    let rocket; 
+    let widthRocket;
+    let heightRocket;
+    let rightPressed = false;
+    let leftPressed = false;
+    document.addEventListener("keydown", keyDown);
+    document.addEventListener("keyup", keyUp);
+    document.addEventListener("mousemove", mouseMove);
+
+    function Rocket(){
+    let self=this;
+
+    rocket=document.createElementNS("http://www.w3.org/2000/svg",'rect');
+    widthRocket=widthField*0.29;
+    heightRocket=widthField*0.025;
+    self.posX=(widthField-widthRocket)/2;
+    self.posY=heightField-heightRocket;
+    // self.posX=0;
+    // self.posY=0;
+ 
+    rocket.setAttribute('x', self.posX);//середина
+    rocket.setAttribute('y', self.posY);//380
+    rocket.setAttribute('width', widthRocket);
+    rocket.setAttribute('height', heightRocket);
+    rocket.setAttribute('rx', '30');
+    rocket.setAttribute('fill', 'url(#Shiny)');
+    rocket.setAttribute('id', 'rocketId');
+    svgGame.appendChild(rocket)
+
+    // rocketName.style.position='absolute';
+
+    // widthRocket=widthField*0.015;
+    // heightRocket=heightField*0.25;
+    // rocketName.style.width=widthRocket+'px';
+    // rocketName.style.height=heightRocket+'px';
+    // rocketName.style.backgroundColor='#09AA57';
+    // field.appendChild(rocketName)
+
+    self.speedX=8;
+
+    self.right=function(){
+        self.posX+=self.speedX;
+        if(self.posX+widthRocket>widthField){
+            self.posX=widthField-widthRocket;
+        }
+        return self;
+    }
+    self.left=function(){
+        self.posX-=self.speedX;
+        if(self.posX<0){
+            self.posX=0;
+        }
+        return self;
+    }
+    self.update=function(){
+      rocket.setAttribute('x', self.posX);
+      //rocket.style.transform="translateX("+self.posX+"px) translateZ(0)";
+        return self;
+    }
+    }
+
+    let rocketGame=new Rocket();
+    console.log(rocketGame.posY)
+
+            // function createGradient(color) {
+    var defs = document.createElementNS("http://www.w3.org/2000/svg",'defs');
+    var radialGradient = document.createElementNS("http://www.w3.org/2000/svg",'radialGradient');
+    radialGradient.setAttribute('cx', '0.5');
+    radialGradient.setAttribute('cy', '0.5');
+    radialGradient.setAttribute('fx', '0.25');
+    radialGradient.setAttribute('fy', '0.25');
+    radialGradient.setAttribute('r', '0.5');
+    defs.appendChild(radialGradient);
+    radialGradient.setAttribute('id', "Shiny");
+
+    var stop1 = document.createElementNS("http://www.w3.org/2000/svg",'stop');
+    stop1.setAttribute("offset", "0%");
+    stop1.setAttribute("stop-color", "#ffffff");
+
+    var stop2 = document.createElementNS("http://www.w3.org/2000/svg",'stop');
+    stop2.setAttribute("offset", "60%");
+    stop2.setAttribute("stop-color",'#8CB0D4');
+
+    var stop3 = document.createElementNS("http://www.w3.org/2000/svg",'stop');
+    stop3.setAttribute("offset", "100%");
+    stop3.setAttribute("stop-color","#424242");
+
+    svgGame.appendChild(defs);
+    defs.appendChild(radialGradient);
+    radialGradient.appendChild(stop1);
+    radialGradient.appendChild(stop2);
+    radialGradient.appendChild(stop3);
+    //   // }
+    //   //createGradient(colorChoice())
+    //         brick.setAttribute('fill', `url(#${colorChoice()})`);
+    //         //console.log(`5${brick.style.fill}5`)
+    //         //stop2.setAttribute("stop-color",colorChoice());
+            
+    //         //brick.setAttribute('fill', `<defs><linearGradient x1='0%' y1='0%' x2='0%' y2='100%'><stop offset='0%' stop-color=white /><stop offset='80%' stop-color=#7FFF00 /> <stop offset='100%' stop-color=#7FFF00 stop-opacity=0.5 /></linearGradient></defs>`);
+    //        // brick.style.fill =`${color}`
+    //        // brick.setAttribute('fill', `<lineargradient x1='0%' y1='0%' x2='0%' y2='100%'><stop offset='0%' stop-color=white /><stop offset='80%' stop-color=#7FFF00 /> <stop offset='100%' stop-color=#7FFF00 stop-opacity=0.5 /></lineargradient>`);
+
+    //         // console.log(brick)
+    //         // console.log(bricks[c][r])
+    //         //svgGame.appendChild(brick);
+    //        // stop2.setAttribute("stop-color",colorChoice());
+    //         brickRect.push(brick)
+    //         svgGame.appendChild(brick);
+    //         //console.log(brick.style.fill.defs.linearGradient.stop2)
+    //         //console.log(`5${brick.style.fill}5`)
+    //       }
+    //       }
+    // }
+    // }
+    // drawBricks();
+    // //brick.style.fill.innerHTML=color
+
+    //11ballall
+    //let ballIdJs=document.getElementById('ballId')
+    let ballIdJs=document.createElementNS("http://www.w3.org/2000/svg",'circle');
+    //brick.setAttribute('fill', `url(#${colorChoice()})`);
+    svgGame.appendChild(ballIdJs)
+    ballIdJs.setAttribute("id",'ballId');
+    ballIdJs.setAttribute('fill', 'url(#Shiny)');
+    let rBall=widthField*0.025; //радиус мяча
+    function Ball(id){
+      let self=this;
+      id.setAttribute('r',rBall); 
+      //id.setAttribute('fil','url(#Shiny)'); 
+      // let cx=widthField/2;
+      // let cy=heightField/2;
+      self.posX=widthField/2; //расположения центра мяча x
+      //self.posY=heightField/2; //расположения центра мяча y
+      self.posY=rocketGame.posY-rBall;
+      // id.setAttribute('cx',cx);
+      // id.setAttribute('cy',cy);
+      self.width=rBall*2;
+      self.height=rBall*2;
+      self.update= function(){
+        // id.style.transform="translateX("+self.posX+"px) translateY("+self.posY+"px) translateZ(0)";
+      //rect {
+  /* не работает в IE */
+//   transform: translate(295px,115px);
+// }
+// • применение атрибутов для SVG-атрибута для трансформации:
+
+// <!— работает везде-->
+// <rect width='150' height='80' transform='translate(295 115)' />
+      
+        id.setAttribute('cx',self.posX);
+      id.setAttribute('cy',self.posY);
+      };
+    }
+    let ball=new Ball(ballIdJs)
+  
+ 
+//mousemove
+    function mouseMove(EO) {
+      if(EO.clientX >= field.offsetLeft && EO.clientX <= field.offsetLeft+widthField){
+        rocketGame.posX=EO.clientX- field.offsetLeft
+        if(EO.clientX-field.offsetLeft>widthField-widthRocket){
+          rocketGame.posX=widthField-widthRocket;   
+        }
+        rocketGame.update();
+      }
+
+//touch   
+    svgGame.ontouchstart=rocketTouchStart;
+    svgGame.ontouchmove=rocketTouchMove;
+    svgGame.ontouchend=rocketTouchEnd;
+
+    var touchShiftX=0;
+    var touchShiftY=0;
+
+  function rocketTouchStart(EO) {
+    EO.preventDefault();
+    console.log('start')
+    var touchInfo=EO.targetTouches[0];
+    touchShiftX=touchInfo.pageX-svgGame.getBoundingClientRect().left;
+    touchShiftY=touchInfo.pageY-svgGame.getBoundingClientRect().top;
+  }
+
+  function rocketTouchEnd(EO) {
+    EO.preventDefault();
+  }
+
+  function rocketTouchMove(EO) {
+    EO.preventDefault();
+    var touchInfo=EO.targetTouches[0];
+    rocketGame.posX=touchInfo.pageX-touchShiftX;
+    if(rocketGame.posX<0){
+      rocketGame.posX=0;
+    } else if(rocketGame.posX+widthRocket>clientWidth){
+      rocketGame.posX=clientWidth-widthRocket
+    }
+    rocketGame.update();
+  }
+
+
+
+
+
+    // var relativeX = e.clientX - field.offsetLeft;
+    // if(relativeX >= 0) {
+    //   rocketGame.posX = relativeX;
+    //   rocketGame.update();
+    //  // console.log(rocketGame.posX = relativeX - widthRocket/2)
+    // } else if(relativeX >= widthField)
+    // rocketGame.posX = widthField-widthRocket;
+    //   rocketGame.update();
+}
+
+//score    
+    let score=0;
+
+      var scoreSVG=document.createElementNS("http://www.w3.org/2000/svg",'text');
+      scoreSVG.setAttribute('x', widthField/2);
+      scoreSVG.setAttribute('y', clientHeight*0.05);
+      scoreSVG.setAttribute('fill', '#7FFF00');
+      scoreSVG.setAttribute('font-weight', "bold");
+      scoreSVG.setAttribute('font-family', 'Arial');
+      scoreSVG.setAttribute('text-anchor', "middle");
+      scoreSVG.setAttribute('font-size', String(widthField*0.04));
+    svgGame.appendChild(scoreSVG);
+
+    scoreSVG.innerHTML=`Score: ${score}`
+
+    let play = false;
+
+    function start(){
+     // drawBricks()
+     clickSoundInit();
+      play=true;
+      ball.speedX=5;
+      ball.speedY=-4;
+      // ball.posX=300;
+      // ball.posY=300;
+    }
+
+    function keyDown(EO) {
+      EO=EO||window.event;
+      EO.preventDefault();
+      if(EO.keyCode == 39) {
+        rightPressed = true;
+      }
+      if(EO.keyCode == 37) {
+        leftPressed = true;
+        }
+    }
+
+    function keyUp(EO) {
+        EO=EO||window.event;
+        EO.preventDefault();
+        if(EO.key == "ArrowRight") {
+          rightPressed = false;
+        }
+        if(EO.key == "ArrowLeft") {
+          leftPressed = false;
+        }
+    }
+
+    function move(){
+      if(play){
+        ball.posY+=ball.speedY; // Если мяч двигался вверх со скоростью 2 пикселя за кадр, то теперь он будет двигаться «вверх» со скоростью -2 пикселя, что фактически соответствует движению вниз со скоростью 2 пикселя за кадр.
+//низ 
+//if(ball.posY+rBall>=heightField){
+          if(ball.posY+rBall*2>=heightField){
+            if(ball.posX>rocketGame.posX&&ball.posX<rocketGame.posX+widthRocket){
+              ball.posY=clientHeight-heightRocket-rBall;
+              ball.speedY=-ball.speedY;
+            }else{
+              // ball.posX=200;
+              // ball.posX=200;
+              // alert("GAME OVER");
+
+              function resetBall(){
+                ball.posX=widthField/2;
+                ball.posY=rocketGame.posY-rBall;
+                ball.speedX=3*(Math.random()*2-1);
+                ball.speedY=-3;
+              }
+              resetBall()//мяч летить в рандомном направлении
+
+            }
+            
+                
+                //ball.posY=heightField-ball.height;
+            }
+//верх
+            if(ball.posY-rBall<0){
+                ball.speedY=-ball.speedY;
+               //ball.posY=0;
+            }
+
+            ball.posX+=ball.speedX;    
+            
+      //           if(ball.posX > widthField-ballRadius || ball.posX  < ballRadius) {
+      //             ball.speedX=-ball.speedX;
+      // }
+//правее стены      
+            if (ball.posX+rBall>=widthField){
+                // if(ball.posY+heightBall>=right.posY&&ball.posY<=right.posY+heightRocket){
+                //     ball.posX=widthField-ball.width-widthRocket;
+                    ball.speedX=-ball.speedX;
+                // }else if(play===true){
+                //     countText=`${pointLeft+=1}:${pointRight}`;
+                //     count.innerHTML=countText;
+                //     ball.speedX=0;
+                //     ball.speedY=0;
+                //     play=false;
+                // }         
+            }
+
+//левее стены
+            if (ball.posX-rBall<0){
+                // if(ball.posY+heightBall>=left.posY&&ball.posY<=left.posY+heightRocket){
+                //     ball.posX=widthRocket;
+                    ball.speedX=-ball.speedX;
+                // }else if(play===true){
+                //     countText=`${pointLeft}:${pointRight+=1}`;
+                //     count.innerHTML=countText
+                //     ball.speedX=0;
+                //     ball.speedY=0;
+                //     play=false;
+                // }
+            }
+          }
+
+            if(rightPressed) {
+              rocketGame.right().update();        
+            }
+            if(leftPressed) {
+              rocketGame.left().update(); 
+            }
+           // drawBricks();
+          //  dr()
+
+        ball.update();
+        
+        collisionDetection();
+        
+        RAF(move);
+        }
+        move();
+
+        function clickSoundInit() {
+        clickAudio.play(); // запускаем звук
+        clickAudio.pause(); // и сразу останавливаем
+    }
+
+    function clickSound() {
+
+        if (!mobile){
+          clickAudio.currentTime=0; // в секундах
+          clickAudio.play();
+        } else{
+          clickAudio.load();
+          clickAudio.play();
+        }
+    }
+
+    //перезарядка даблтап
+(function($){
+
+$.event.special.doubletap = {
+  bindType: 'touchend',
+  delegateType: 'touchend',
+
+  handle: function(event) {
+    var handleObj   = event.handleObj,
+        targetData  = jQuery.data(event.target),
+        now         = new Date().getTime(),
+        delta       = targetData.lastTouch ? now - targetData.lastTouch : 0,
+        delay       = delay == null ? 300 : delay;
+
+    if (delta < delay && delta > 30) {
+      targetData.lastTouch = null;
+      event.type = handleObj.origType;
+      ['clientX', 'clientY', 'pageX', 'pageY'].forEach(function(property) {
+        event[property] = event.originalEvent.changedTouches[0][property];
+      })
+
+      // let jQuery handle the triggering of "doubletap" event handlers
+      handleObj.handler.apply(this, arguments);
+    } else {
+      targetData.lastTouch = now;
+    }
+  }
+};
+
+})(jQuery);
+
+$('#main').on('doubletap',function(event){
+document.getElementById('main').style.color='#44dd00'
+});
+        
+    // function checkMediaQuery() {
+    //   if (window.innerWidth < 780) {
+    //   console.log('Media Query Matched!')
+    //   //field.style.width='100vw';
+    //   widthField='100%';
+    //   field.style.width=widthField;
+    //   svgGame.setAttribute('width', widthField);
+    //   console.log(widthField)
+    // console.log('clientWidth '+clientWidth)
+    //  // ball.setAttribute('r', clientWidth*0.03);  
+    //  // ball.r=clientWidth*0.03;  
+    //   //let widthFieldMob=document.documentElement.clientWidth;
+    //  // console.log(widthFieldMob)
+    //  console.log(ballIdJs)
+    //  console.log('widthField*0.03 '+widthField*0.03)
+    //  ballIdJs.setAttribute('r', clientWidth*0.03);  
+    //   }
+    // }
+    // window.addEventListener('resize', checkMediaQuery); 
+
+
+      //  N.10 Выбор случайных цветов радуги
+    //     function randomDiap(n,m) {
+    //         return Math.floor(Math.random()*(m-n+1))+n;
+    // }
+
+    // function mood(colorsCount) {
+    //     var colors=[ '', 'красный', 'оранжевый', 'жёлтый', 'зелёный', 'голубой', 'синий', 'фиолетовый' ];
+
+    //     console.log( 'цветов: ' + colorsCount );
+    //     for ( var i=1; i<=colorsCount; i++ ) {
+    //         var n=randomDiap(1,7);
+    //         var colorName=colors[n];
+    //         console.log( colorName );
+    //     }
+    // }
+
+    // mood(3);
+
+
+
+
+// const mediaQuery = window.matchMedia('(max-width: 780px)')
+// function handleTabletChange(e) {
+//   if (e.matches) {
+//     console.log('Media Query Matched!')
+//         field.style.width='100vw';
+//     let widthFieldMob=field.style.width;
+//     console.log(widthFieldMob)
+//     ball.setAttribute('r', document.documentElement.clientWidth*0.035);
+//   }
+// }
+// mediaQuery.addListener(handleTabletChange)
+// handleTabletChange(mediaQuery)
+
+  </script>
+  
+</body>
+</html>
+
+<!-- // const windowInnerHeight = document.documentElement.clientHeight
+// let container=document.querySelector('.container');
+// container.style.height=windowInnerHeight+'px';
+// console.log(windowInnerHeight) -->
+
+

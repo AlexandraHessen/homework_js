@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vowels_forEach</title>
+</head>
+<body>
+    <div id="phone"></div>
+  <script>
+        const arr=[
+            {id: 1},
+            {id: 2},
+            {id: 3},
+            {id: 4}
+        ]
+        const phone=document.getElementById('phone');
+        let str="";
+        for(let i=0; i<arr.length; i++){
+            str+=`<button data-phoneid=${arr[i].id}>del</button>`
+        }
+        phone.innerHTML=str;
+        const btns =phone.querySelectorAll('button');
+        btns.forEach((btn, indx)=>{
+            btn.addEventListener("click", function(e){
+                console.log(e.target.dataset.phoneid);
+            })
+        })
+    
+
+</script>
+    
+</body>
+</html>

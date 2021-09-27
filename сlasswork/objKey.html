@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        'use strict'
+        var friend={ name:'Владимир', age:25 };
+console.log(friend.age);
+25
+console.log(friend.name);
+
+friend.name='Володя';
+console.log(friend.name);
+
+console.log('age' in friend);
+
+console.log('gender' in friend);
+
+console.log(friend.gender); /* несуществующий элемент */
+
+friend.gender='М'; /* создаём новый элемент */
+console.log(friend.gender);
+
+console.log('gender' in friend);
+
+for ( var k in friend )
+  console.log( k );
+
+for ( var k in friend )
+  console.log( k + ' / ' + friend[k] );
+
+delete friend.age;
+for ( var k in friend )
+  console.log( k + ' / ' + friend[k] );
+
+console.log(delete friend.name); // delete ВСЕГДА возвращает true
+
+console.log(delete friend.zzz); // delete ВСЕГДА возвращает true
+
+    </script>
+</body>
+</html>

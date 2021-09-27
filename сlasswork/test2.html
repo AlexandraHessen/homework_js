@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game</title>
+  <style>
+    /* overflow: hidden */
+    body {margin: 0; padding: 0;}
+    h1, h2, h3, h4, h5, h6 {margin-top: 0;}
+    ul, ol {margin: 0;}
+    p {margin: 0;}
+
+    .container{
+      width: 100vw=350;
+      height: 100vh;
+      box-sizing: border-box;
+     background-color: #08101B;
+     display: flex;
+     flex-direction: row;
+     justify-content: space-around;
+     /* #081D32;  светлее*/
+    }
+    .game{
+      height: 100vh;
+      background:  url('11.jpeg') no-repeat center;
+      position: relative;
+      /* background-size: 100%; */
+      
+
+ 
+    }
+    .menu{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    @media all and (max-width: 780px){
+      .container{
+        flex-direction: column;
+      }
+      /* .game{
+        width: 100vw;
+      } */
+      .menu{
+        flex-direction: row;
+        justify-content: space-around;
+      }
+
+      #ballId{
+        position: absolute;
+      }
+
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="menu">
+      <input type=button value='Новая игра' onclick='start()'>
+      <input type=button value='Правила'>
+      <input type=button value='Таблица рекордов'>
+    </div>
+    <div class="game">
+      <svg id='svgGameId'version="1.0"  width="700" height="700" xmlns="http://www.w3.org/2000/svg">
+       <defs>
+        <radialGradient id="Shiny"
+          cx="0.5" cy="0.5" r="0.5" fx="0.25" fy="0.25">
+         <stop offset="0%" stop-color="#ffffff" />
+         <stop offset="60%" stop-color="#8CB0D4" />
+         <stop offset="100%" stop-color="#424242" />
+         <!-- <stop offset="100%" stop-color="#000000" /> --=350;
+         <!-- <stop offset="50%" stop-color="#aa66cc" />
+         <stop offset="75%" stop-color="#553366" />
+         <stop offset="100%" stop-color="#000000" /> -->
+        </radialGradient>
+       </defs>
+       <circle id='ballId'   fill="url(#Shiny)" />
+       <!-- style='position: absolute' style='position: relative' -->
+
+       <defs>
+        <linearGradient id='LG1' x1='0%' y1='0%' x2='0%' y2='100%'>
+            <stop offset='0%' stop-color=white />
+            <stop offset='80%' stop-color=#7FFF00 /> 
+            <stop offset='100%' stop-color=#7FFF00 stop-opacity=0.5 />
+        </linearGradient>
+        <!-- <linearGradient id='LG2' x1='0%' y1='0%' x2='0%' y2='100%'>
+          <stop offset='0%' stop-color=white />
+          <stop offset='80%' stop-color=#FF0000 /> 
+          <stop offset='100%' stop-color=#FF0000 stop-opacity=0.5 />
+      </linearGradient>
+      <linearGradient id='LG3' x1='0%' y1='0%' x2='0%' y2='100%'>
+        <stop offset='0%' stop-color=white />
+        <stop offset='80%' stop-color=#FFD700 /> 
+        <stop offset='100%' stop-color=#FFD700 stop-opacity=0.5 />
+    </linearGradient>
+    <linearGradient id='LG4' x1='0%' y1='0%' x2='0%' y2='100%'>
+      <stop offset='0%' stop-color=white />
+      <stop offset='80%' stop-color=#9932CC /> 
+      <stop offset='100%' stop-color=#9932CC stop-opacity=0.5 />
+  </linearGradient>
+  <linearGradient id='LG5' x1='0%' y1='0%' x2='0%' y2='100%'>
+    <stop offset='0%' stop-color=white />
+    <stop offset='80%' stop-color=#0000FF /> 
+    <stop offset='100%' stop-color=#0000FF stop-opacity=0.5 />
+</linearGradient> -->
+    </defs>
+    <rect x=5 y=5 width=80 height=40 rx='15' fill='url(#LG1)' />
+    <!-- <rect x=5 y=60 width=80 height=40 rx='15' fill='url(#LG2)' />
+    <rect x=5 y=110 width=80 height=40 rx='15' fill='url(#LG3)' />
+    <rect x=5 y=170 width=80 height=40 rx='15' fill='url(#LG4)' />
+    <rect x=5 y=230 width=80 height=40 rx='15' fill='url(#LG5)' /> -->
+      </svg>
+    </div>
+
+  </div>
+  <script>
+    'use strict'
+    var RAF=
+        window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function(callback)
+            { window.setTimeout(callback, 1000 / 60); }
+
+            function checkMediaQuery() {
+  if (window.innerWidth < 780) {
+    console.log('Media Query Matched!')
+    field.style.width='100vw';
+    let widthFieldMob=document.documentElement.clientWidth;
+    console.log(widthFieldMob)
+    ball.setAttribute('r', widthFieldMob*0.03);
+   
+  }
+}
+window.addEventListener('resize', checkMediaQuery);
+
+    let svgGame=document.getElementById('svgGameId');
+
+//field
+    let field=document.querySelector('.game');
+    let widthField=700; // все построения от ширины
+    let heightField=700;
+    field.style.width=widthField+'px';
+
+//ball
+    let ballIdJs=document.getElementById('ballId')
+    let rBall=widthField*0.03; //радиус мяча
+    function Ball(id){
+      let self=this;
+      id.setAttribute('r',rBall); 
+      // let cx=widthField/2;
+      // let cy=heightField/2;
+
+      self.posX=widthField/2; //расположения центра мяча x
+      self.posY=heightField/2; //расположения центра мяча y
+      // id.setAttribute('cx',cx);
+      // id.setAttribute('cy',cy);
+      self.width=rBall*2;
+      self.height=rBall*2;
+      self.update= function(){
+        // id.style.transform="translateX("+self.posX+"px) translateY("+self.posY+"px) translateZ(0)";
+      id.setAttribute('cx',self.posX);
+      id.setAttribute('cy',self.posY);
+      };
+    }
+    let ball=new Ball(ballIdJs)
+
+//brick 
+    
+
+var brickRowCount = 3; //кол-во строк
+var brickColumnCount = 5; //кол-во столбцов
+var brickWidth = 75; //
+var brickHeight = 20; //
+var brickPadding = 10; // расстояние между
+var brickOffsetTop = 30; //? смещение
+var brickOffsetLeft = 30;
+
+var bricks = [];
+for(var c=0; c<brickColumnCount; c++) {
+    bricks[c] = [];
+    for(var r=0; r<brickRowCount; r++) {
+        bricks[c][r] = { x: 0, y: 0, status: 1 };
+    }
+}
+let brick;
+let brickRect=[];
+function drawBricks() {
+    for(var c=0; c<brickColumnCount; c++) {
+        for(var r=0; r<brickRowCount; r++) {
+          if(bricks[c][r].status == 1){
+            var brickX = (c*(brickWidth+brickPadding))+brickOffsetLeft;
+          var brickY = (r*(brickHeight+brickPadding))+brickOffsetTop;
+            bricks[c][r].x = brickX;
+            bricks[c][r].y = brickY;
+            brick=document.createElementNS("http://www.w3.org/2000/svg",'rect');
+            brick.setAttribute('x', brickX);
+            brick.setAttribute('y', brickY);
+            brick.setAttribute('width', brickWidth);
+            brick.setAttribute('height', brickHeight);
+            brick.setAttribute('fill', 'red');
+            // console.log(brick)
+            // console.log(bricks[c][r])
+            svgGame.appendChild(brick);
+           }
+
+          }
+    }
+}
+drawBricks();
+
+// delete brick 
+function collisionDetection() {
+    for(var c=0; c<brickColumnCount; c++) {
+        for(var r=0; r<brickRowCount; r++) {
+            var b = bricks[c][r]; // конкретный кирпич
+           
+            // calculations
+            //ball.posX-rBall > b.x && ball.posX+rBall < b.x+brickWidth && ball.posY+rBall > b.y && ball.posY < b.y+brickHeight
+             if(b.status == 1){
+              // if(ball.posX+rBall > b.x && ball.posX-rBall < b.x+brickWidth && ball.posY-rBall> b.y && ball.posY-rBall< b.y+brickHeight) {
+              if(ball.posX > b.x && ball.posX < b.x+brickWidth && ball.posY > b.y && ball.posY < b.y+brickHeight) {
+              ball.speedY=-ball.speedY;
+               b.status = 0;
+              //brick.setAttribute('fill', 'yellow');
+              brick.setAttribute("style","display:none;");
+          
+          console.log(brick)
+          console.log(bricks[c][r])
+             }
+
+            }
+
+        }
+    }
+}
+
+let play = false;
+
+function start(){
+            play=true;
+            ball.speedX=4;
+            ball.speedY=3;
+            // ball.posX=300;
+            // ball.posY=300;
+        }
+
+        function move(){
+            if(play){
+                ball.posY+=ball.speedY; // Если мяч двигался вверх со скоростью 2 пикселя за кадр, то теперь он будет двигаться «вверх» со скоростью -2 пикселя, что фактически соответствует движению вниз со скоростью 2 пикселя за кадр.
+//низ 
+            if(ball.posY+rBall>heightField){
+                ball.speedY=-ball.speedY;
+                //ball.posY=heightField-ball.height;
+            }
+//верх
+            if(ball.posY-rBall<0){
+                ball.speedY=-ball.speedY;
+               //ball.posY=0;
+            }
+
+            ball.posX+=ball.speedX;    
+            
+  //           if(ball.posX > widthField-ballRadius || ball.posX  < ballRadius) {
+  //             ball.speedX=-ball.speedX;
+  // }
+//правее стены      
+            if (ball.posX+rBall>=widthField){
+                // if(ball.posY+heightBall>=right.posY&&ball.posY<=right.posY+heightRocket){
+                //     ball.posX=widthField-ball.width-widthRocket;
+                    ball.speedX=-ball.speedX;
+                // }else if(play===true){
+                //     countText=`${pointLeft+=1}:${pointRight}`;
+                //     count.innerHTML=countText;
+                //     ball.speedX=0;
+                //     ball.speedY=0;
+                //     play=false;
+                // }         
+            }
+
+//левее стены
+            if (ball.posX-rBall<0){
+                // if(ball.posY+heightBall>=left.posY&&ball.posY<=left.posY+heightRocket){
+                //     ball.posX=widthRocket;
+                    ball.speedX=-ball.speedX;
+                // }else if(play===true){
+                //     countText=`${pointLeft}:${pointRight+=1}`;
+                //     count.innerHTML=countText
+                //     ball.speedX=0;
+                //     ball.speedY=0;
+                //     play=false;
+                // }
+            }
+         }
+   
+
+//             if(upPressed) {
+//                 right.up().update();        
+//             }
+//             if(downPressed) {
+//                 right.update().down();
+//             }
+//             if(shiftPressed) {
+//                 left.up().update();
+//             }
+//             if(ctrlPressed) {
+//                 left.update().down();
+//             }
+
+        ball.update();
+        
+        collisionDetection();
+        RAF(move);
+        }
+        move();
+
+
+
+
+
+
+
+
+// const mediaQuery = window.matchMedia('(max-width: 780px)')
+// function handleTabletChange(e) {
+//   if (e.matches) {
+//     console.log('Media Query Matched!')
+//         field.style.width='100vw';
+//     let widthFieldMob=field.style.width;
+//     console.log(widthFieldMob)
+//     ball.setAttribute('r', document.documentElement.clientWidth*0.035);
+//   }
+// }
+// mediaQuery.addListener(handleTabletChange)
+// handleTabletChange(mediaQuery)
+
+  </script>
+  
+</body>
+</html>
+
+<!-- // const windowInnerHeight = document.documentElement.clientHeight
+// let container=document.querySelector('.container');
+// container.style.height=windowInnerHeight+'px';
+// console.log(windowInnerHeight) -->
+

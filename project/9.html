@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<body>
+<svg id="mysvg" width="1000" height="800"
+xmlns="http://www.w3.org/2000/svg" version="1.1">
+<text x="50" y="60" fill="black" 
+     font-family="Arial, Helvetica, sans-serif" 
+     font-size="28">Revenue and Expenses</text>
+<line x1="150" y1="80" x2="150" y2="320" 
+   style="stroke:rgb(155, 144, 144);stroke-width:5" />
+<script type="application/ecmascript"> <![CDATA[
+   var mysvg = document.getElementById("mysvg");
+   var chart_start = [152, 84, 152]
+   var chart_width = [100,64,36]
+   var chart_names = ["Revenue", "Expenses","Profit"]
+   var chart_color = ["#28CE6D","#DF3456","#4DC7EC"]
+   var num = 3;
+
+   while (num-- > 0)
+   {
+     var rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+         rect.setAttribute("x", chart_start[num]);
+         rect.setAttribute("y", [num] * 70 + 100);
+         rect.setAttribute("width", chart_width[num]);
+         rect.setAttribute("height", "50");
+         rect.setAttribute("style", "fill:" + chart_color[num] + ";stroke:black;stroke-width:1;opacity:1");
+         mysvg.appendChild(rect);
+   }  
+     ]]></script>
+   </svg>
+ </body>
+</html>

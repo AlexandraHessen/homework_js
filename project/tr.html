@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+"use strict";
+
+window.addEventListener('hashchange', switchToStateFromURLHash, false);
+window.addEventListener('resize', resizeGame, false);
+
+var container = document.getElementById('container');
+container.width = document.body.clientWidth;
+
+function resizeGame() {
+  container.width = document.body.clientWidth;
+}
+
+var SPAState = {};
+
+function switchToStateFromURLHash() {
+  var URLHash = window.location.hash;
+
+  var stateStr = URLHash.substr(1);
+
+  if (stateStr != '') { // если закладка непустая, читаем из неё состояние и отображаем
+    var parts = stateStr.split('_')
+    SPAState = { pagename: parts[0] }; // первая часть закладки - номер страницы
+  } else {
+    SPAState = { pagename: 'Main' }; // иначе показываем главную страницу
+  }
+
+  function include(url) {
+    var script = document.createElement('script');
+    script.src = url;
+    document.body.appendChild(script);
+  }
+
+  var pageHTML = '';
+  switch (SPAState.pagename) {
+    case 'Main':
+      pageHTML += `
+        <div id="mainPage">
+          <div id="mainMenu" class="flex aic fdc menu">
+            <button type="button" onclick="switchToMainPage()">Главная</button>
+            <br>
+            <button type="button" onclick="switchToOptionsPage()">Новая игра</button>
+            <br>
+            <button type="button" onclick="switchToRulesPage()">Правила игры</button>
+            <br>
+            <button type="button" onclick="switchToRecordsPage()">Рекорды</button>
+            <br>
+          </div>
+        </div>
+      `
+      ;
+      break;
+    case 'Options':
+      pageHTML += `
+        <div id="optionsPage" class="menu">
+          <h2 id="optionsTop">Опции игры</h2>
+          <form name="optionsForm">
+          <div id="playersNames" class="flex aic jcsb">
+            <div>
+              <p>Как зовут игрока слева:</p>
+              <input type="text" name="leftPlayerName" value="Henry" maxlength="8" id="leftPlayerName">
+            </div>
+            <div>
+              <p>Как зовут игрока справа:</p>
+              <input type="text" name="leftPlayerName" value="DelPiero" maxlength="8" id="rightPlayerName">
+            </div>
+          </div>
+          <br>
+          <p>Кто начнет игру:</p>
+          <div class="flex aic jcsb" id="whoStarts">
+            <div><label><input type="radio" name="whoStartsGame" value="player1" id="leftPlayerStartGame" checked>Игрок слева</label></div>
+            <div><label><input type="radio" name="whoStartsGame" value="player2" id="rightPlayerStartGame">Игрок справа</label><br></div>
+          </div>
+          <br>
+          <p>Сколько нужно забить для победы:</p>
+          <br>
+          <div class="flex aic jcsb" id="scoreToWinRadio">
+            <div><label><span>1</span><input type="radio" name="howMany" value="1" id="toWin1"></label></div>
+            <div><label><span>2</span><input type="radio" name="howMany" value="2" id="toWin2"></label></div>
+            <div><label><span>3</span><input type="radio" name="howMany" value="3" id="toWin3" checked></label></div>
+            <div><label><span>4</span><input type="radio" name="howMany" value="4" id="toWin4"></label></div>
+            <div><label><span>5</span><input type="radio" name="howMany" value="5" id="toWin5"></label></div>
+          </div>
+          </form>
+          <br>
+          <button id="gameStart" type="button" onclick="switchToGamePage()">Начать игру</button>
+        </div>
+      `
+      ;
+      include("script/options.js");
+      break;
+    case 'Game':
+      pageHTML += `
+        <div id="gamePage">
+          <div class="flex fdc" id="header">
+            <div id="top" class="flex jcsb aic">
+              <div id="player1">
+                <div id="player1Icon"></div>
+                <progress id="player1Progress" max="100" value="100"></progress>
+              </div>
+              <button class="button" type="button" id="pauseButton">pause</button>
+              <div id="player2">
+                <div id="player2Icon"></div>
+                <progress id="player2Progress" max="100" value="100"></progress>
+              </div>
+            </div>
+            <div class="flex aic jcsb" id="middle">
+              <div id="leftPlayerAka">left player</div>
+              <div id="score">0 : 0</div>
+              <div id="rightPlayerAka">right player</div>
+            </div>
+            <div id="toWinScore"></div>
+          </div>
+          <div id="soccerGame"></div>
+        </div>
+      `
+      ;
+      include("script/script.js");
+      break;
+    case 'Rules':
+      pageHTML += `
+        <div class="menu" id="rulesPage">
+          Игроки бьют по мячу по очереди. <br>
+          <br>
+          Аутов в игре нет. Поэтому рикошет мяча от стенок поля-коробки можно использовать 
+          в свою пользу. <br>
+          Советуем контролировать скорость разгона крышечек перед ударом (помните, что удар будет всегда сильным, а вот как далеко прокатится крышечка зависит от вас),
+          избегать любых столкновений и не попадать мячом в другие крышечки. <br>
+          Лучше всего забивать мяч сразу в ворота :) <br>
+          <br>
+          <p id="gl">Удачи на поле!</p>  
+        </div>
+      `
+      ;
+      break;
+    case 'Records':
+      pageHTML += `
+        <div id="recordsPage">
+          <div class="menu" id="tableWrapper">
+            <table id="records">
+              <caption>Таблица рекордов</caption>
+              <tr>
+                <th>Место</th>
+                <th>Имя игрока</th>
+                <th>Количество голов</th>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td id="firstName"></td>
+                <td id="firstGoals"></td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td id="secondName"></td>
+                <td id="secondGoals"></td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td id="thirdName"></td>
+                <td id="thirdGoals"></td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td id="fourthName"></td>
+                <td id="fourthGoals"></td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td id="fifthName"></td>
+                <td id="fifthGoals"></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      `
+      ;
+      include("script/records.js");
+      break;
+  }
+  document.getElementById('IPage').innerHTML = pageHTML;
+}
+
+switchToStateFromURLHash();
+
+function switchToState(newState) {
+  var stateStr = newState.pagename;
+  location.hash = stateStr;
+}
+
+function switchToMainPage() {
+  switchToState( { pagename:'Main' } );
+}
+
+function switchToOptionsPage() {
+  switchToState( { pagename:'Options' } );
+}
+
+function switchToGamePage() {
+  switchToState( { pagename:'Game' } );
+}
+
+function switchToRulesPage() {
+  switchToState( { pagename:'Rules' } );
+}
+
+function switchToRecordsPage() {
+  switchToState( { pagename:'Records' } );
+}
+
+  </script>
+  
+</body>
+</html>

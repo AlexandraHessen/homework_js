@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form name="form">
+        <input type="text" id="text">
+    </form>
+    <input type='button' onclick='div()' value='div'>
+    <input type='button' onclick='strong()' value='strong'>
+    <input type='button' onclick='em()' value='em'>
+    <button type="button" id="btn">p</button>
+    <script>
+        'use strict'
+
+        function div(){
+    const div=document.createElement('div');
+    const inpVal=document.getElementById('text').value;
+    const contentDiv=document.createTextNode(inpVal);
+    div.appendChild(contentDiv);
+    document.body.appendChild(div);
+
+        }
+        console.log(div());
+        function strong(){
+    const strong=document.createElement('strong');
+    const inpVal=document.getElementById('text').value;
+    const contentDiv=document.createTextNode(inpVal);
+    strong.appendChild(contentDiv);
+    document.body.appendChild(strong);
+        }
+
+        function em(){
+    const em=document.createElement('em');
+    const inpVal=document.getElementById('text').value;
+    const contentDiv=document.createTextNode(inpVal);
+    em.appendChild(contentDiv);
+    document.body.appendChild(em);
+        }
+
+
+
+
+        let a=prompt('dffd');
+console.log(div(a));
+
+    </script>
+    
+</body>
+</html>

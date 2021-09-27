@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>shop</title>
+</head>
+<body>
+<form name="form">
+    <input type="text" name="title">
+    <input type="text" name="img">
+    <input type="text" name="price">
+    <input type="text" name="descr">
+</form>
+<button type="button" id="btn">save</button>
+
+    <div id="app"></div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script>
+        let items=[];
+        const btn=document.getElementById('btn');
+        btn.addEventListener('click', save);
+        function save(){
+            const form=document.forms['form'];
+            const elems=form.elements;
+            let elem={};
+
+            for(let i=0; i<elems.length; i++){
+                elem[elems[i].name]=elems[i].value;
+            }
+            items.push(elem);
+            render(items, 'app');
+        }
+
+        function render(data, elemsName){
+            let elemsHTML='';
+            data.forEach((el, indx)=>{
+                elemsHTML +=`
+                <div class="card" style="width: 18rem;">
+                    <img src="${el.img}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">${el.title}</h5>
+                        <h6>${el.price}</h6>
+                        <p class="card-text">${el.descr}</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+                `
+            })
+            const el=document.getElementById(elemsName);
+            el.innerHTML=elemsHTML;
+        }
+
+    </script>
+</body>
+</html>

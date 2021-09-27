@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        "use strict";
+        let nam=[15, 2, 6, 15, 1, 1, 2, 6 , 6];
+        let obj={}; //используем свойство объекта что не может быть два одинаковых ключа, поэтому создаем пустой объект в котором не будет повторов
+        for (let i=0; i<nam.length; i++){ // перебираем весь массив последовательно
+            if (nam[i] in obj) // проверяем есть ли цифра в объекте nam[i] = nam[0] =15 значение в массиве по индексу arr[i]=значение которое видим 
+            continue; // пропускаем если уже есть такая цифра
+            obj[nam[i]]='true'; // если нет, то вносим новый элемент приваиваем true  в объект и чтобы было какое-то значение (можно любое)
+           //добавить новый элемент в объект obj[nam[i]] лучше всегда через [] потому чтто через точку может не сработать
+            console.log(nam[i]);
+        }
+
+        </script>
+
+<!-- "use strict";
+
+var values=[55,77,55,66,77];
+var used={}; // ключ хэша - число, которое уже встречалось
+for ( var i=0; i<values.length; i++ ) {
+    var value=values[i]; // очередное значение
+    if ( value in used ) // встречалось ли оно?
+        continue; // если да - всё, берём следующее
+    used[value]=true; // если нет - запоминаем, что это значение уже встречалось
+    console.log(value); // выводим его в консоль
+}
+
+</>
+
+    </script> -->
+    
+</body>
+</html>
