@@ -1,6 +1,7 @@
-str=prompt("Введите Ваше имя:");
-function delSpace(string){
-    string=string.split(' ').join('');
+str = prompt("Введите Ваше имя:");
+
+function delSpace(string) {
+    string = string.split(' ').join('');
     return string;
 }
-console.log('$'+delSpace(str)+"$");
+console.log('$' + delSpace(str) + "$");
