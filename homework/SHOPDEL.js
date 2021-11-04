@@ -33,7 +33,7 @@ function render(){
 }
 let add=document.getElementById('add');
 add.innerHTML=html;
-
+del();
 }
 
 function del(){
